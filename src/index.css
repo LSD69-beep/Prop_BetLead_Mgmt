@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0F4C5C;
+  --color-on-primary: #FFFFFF;
+  --color-primary-container: #D2E8ED;
+  --color-on-primary-container: #09323D;
+  --color-secondary: #B44D27;
+  --color-on-secondary: #FFFFFF;
+  --color-secondary-container: #FCE8E0;
+  --color-on-secondary-container: #5C220D;
+  --color-accent: #D97736;
+  --color-on-accent: #2A2A2A;
+  --color-surface: #F2F5F3;
+  --color-surface-container-low: #E9EFEA;
+  --color-surface-container: #FFFFFF;
+  --color-surface-container-high: #DDE6E0;
+  --color-on-surface: #152226;
+  --color-on-surface-variant: #4B5E63;
+  --color-outline: #8FA3A8;
+  --color-outline-variant: #D0DDD7;
+  --color-success: #1F7A4C;
+  --color-on-success: #FFFFFF;
+  --color-success-container: #DCFCE7;
+  --color-on-success-container: #14532D;
+  --color-warning: #B45309;
+  --color-on-warning: #FFFFFF;
+  --color-error: #B91C1C;
+  --color-on-error: #FFFFFF;
+
+  --font-display: "Playfair Display", serif;
+  --font-headline: "Montserrat", sans-serif;
+  --font-title: "Montserrat", sans-serif;
+  --font-body: "Montserrat", sans-serif;
+  --font-label: "Montserrat", sans-serif;
+  --font-mono: "Red Hat Mono", monospace;
+}
+
+@layer base {
+  body {
+    background-color: #F2F5F3;
+    color: #152226;
+    font-family: var(--font-body);
+  }
+}
+
+.material-symbols-outlined {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1 !important;
+  box-sizing: content-box;
+  overflow: hidden;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: middle;
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.animate-ken-burns {
+  animation: kenBurns 26s ease-in-out infinite;
+}

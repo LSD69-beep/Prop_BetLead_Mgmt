@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlassWindow — Agent Flats &amp; Companies</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#0F4C5C',
+        'on-primary': '#FFFFFF',
+        'primary-container': '#D2E8ED',
+        'on-primary-container': '#09323D',
+        'secondary': '#B44D27',
+        'on-secondary': '#FFFFFF',
+        'secondary-container': '#FCE8E0',
+        'on-secondary-container': '#5C220D',
+        'accent': '#D97736',
+        'on-accent': '#2A2A2A',
+        'surface': '#F2F5F3',
+        'surface-container-low': '#E9EFEA',
+        'surface-container': '#FFFFFF',
+        'surface-container-high': '#DDE6E0',
+        'on-surface': '#152226',
+        'on-surface-variant': '#4B5E63',
+        'outline': '#8FA3A8',
+        'outline-variant': '#D0DDD7',
+        'success': '#1F7A4C',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'error': '#B91C1C',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '64px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Playfair Display"', 'sans-serif'],
+        'headline': ['"Montserrat"', 'sans-serif'],
+        'title': ['"Montserrat"', 'sans-serif'],
+        'body': ['"Montserrat"', 'sans-serif'],
+        'label': ['"Montserrat"', 'sans-serif'],
+        'mono': ['"Red Hat Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-0.75px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md': ['38px', { lineHeight: '46px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['34px', { lineHeight: '42px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.3px', fontWeight: '600' }],
+        'mono-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Red+Hat+Mono:wght@500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col bg-surface text-on-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-surface-container border-b border-outline-variant">
+      <div class="max-w-7xl mx-auto px-gutter-lg h-20 flex items-center justify-between gap-gutter-md">
+        <a href="../homepage/GlassWindowHomepage.html" class="flex items-center gap-gutter-sm shrink-0">
+          <span class="w-9 h-9 rounded-DEFAULT bg-secondary text-on-secondary flex items-center justify-center">
+            <span class="material-symbols-outlined text-title-lg" aria-hidden="true">window</span>
+          </span>
+          <span class="font-display text-headline-sm text-primary tracking-tight" data-design-text-token="headline-sm">GlassWindow</span>
+        </a>
+
+        <a href="../agent-login/AgentLogin.html" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-md bg-surface-container border border-outline-variant font-label text-label-md text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors duration-state-change">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">logout</span>
+          <span data-design-text-token="label-md">Sign Out</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 py-gutter-xl px-gutter-lg bg-surface">
+      <div class="max-w-7xl mx-auto w-full flex flex-col gap-gutter-xl">
+
+        <!-- Page Heading -->
+        <div class="flex flex-col gap-gutter-xs pb-gutter-lg border-b border-outline-variant">
+          <div class="flex items-center gap-gutter-sm">
+            <span class="px-gutter-sm py-gutter-xs rounded-DEFAULT bg-secondary-container text-on-secondary-container font-mono text-mono-sm" data-design-text-token="mono-sm">Agent Portal</span>
+            <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">RERA Partner Directory</span>
+          </div>
+          <h1 class="font-display text-display-md-mobile lg:text-display-md text-on-surface text-balance" data-design-text-token="display-md">
+            Listed flats &amp; developer companies
+          </h1>
+          <p class="font-body text-body-md text-on-surface-variant" data-design-text-token="body-md">
+            Browse all registered real estate companies and inspect their available residential flats.
+          </p>
+        </div>
+
+        <!-- Companies Present Section -->
+        <section aria-label="Registered developer companies" class="rounded-xl bg-surface-container border border-outline-variant p-gutter-lg shadow-sm flex flex-col gap-gutter-md">
+          <div class="flex items-center justify-between gap-gutter-sm">
+            <h2 class="font-headline text-headline-sm text-on-surface" data-design-text-token="headline-sm">Companies Present</h2>
+            <span class="font-mono text-mono-sm text-on-surface-variant tabular-nums" data-design-text-token="mono-sm">5 companies</span>
+          </div>
+
+          <div id="company-filters" class="flex flex-wrap items-center gap-gutter-sm" role="group" aria-label="Filter flats by company">
+            <!-- Populated by script -->
+          </div>
+        </section>
+
+        <!-- Flats Grid -->
+        <section aria-label="Agent flat inventory" class="flex flex-col gap-gutter-lg">
+          <div class="flex items-center justify-between gap-gutter-sm">
+            <h2 class="font-headline text-headline-sm text-on-surface" data-design-text-token="headline-sm">Available Flats</h2>
+            <span id="agent-flats-count" class="font-mono text-mono-sm text-on-surface-variant tabular-nums" data-design-text-token="mono-sm">8 properties</span>
+          </div>
+
+          <div id="agent-flats-grid" class="grid grid-cols-1 md:grid-cols-2 gap-gutter-lg items-stretch">
+            <!-- Populated by script -->
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container border-t border-outline-variant py-gutter-lg">
+      <div class="max-w-7xl mx-auto px-gutter-lg flex flex-col sm:flex-row items-center justify-between gap-gutter-sm">
+        <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">© 2026 GlassWindow Advisory Pvt. Ltd.</span>
+        <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Agent Portal</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    var COMPANIES = [
+      'All Companies',
+      'Sobha Limited',
+      'Prestige Estates Projects Limited',
+      'Brigade Enterprises Limited',
+      'Godrej Properties Limited',
+      'DLF Limited'
+    ];
+
+    var AGENT_FLATS = [
+      {
+        id: 'blr-1',
+        name: 'Sobha Neopolis',
+        company: 'Sobha Limited',
+        locality: 'Panathur Road, East Bangalore',
+        price: '₹1.68 Cr',
+        rate: '₹11,400 / sq.ft',
+        config: '3 BHK • 1,840 sq.ft',
+        carpet: '72% Carpet',
+        score: '8.9 / 10',
+        image: '../../images/property_bengaluru.jpg'
+      },
+      {
+        id: 'blr-2',
+        name: 'Prestige Park Grove',
+        company: 'Prestige Estates Projects Limited',
+        locality: 'Whitefield, East Bangalore',
+        price: '₹1.85 Cr',
+        rate: '₹11,950 / sq.ft',
+        config: '3 BHK • 1,920 sq.ft',
+        carpet: '71% Carpet',
+        score: '9.1 / 10',
+        image: '../../images/home_living_glass.jpg'
+      },
+      {
+        id: 'blr-3',
+        name: 'Brigade Utopia',
+        company: 'Brigade Enterprises Limited',
+        locality: 'Varthur Main Rd, East Bangalore',
+        price: '₹1.42 Cr',
+        rate: '₹10,250 / sq.ft',
+        config: '3 BHK • 1,656 sq.ft',
+        carpet: '70% Carpet',
+        score: '8.6 / 10',
+        image: '../../images/home_villa_courtyard.jpg'
+      },
+      {
+        id: 'blr-4',
+        name: 'Godrej Splendour',
+        company: 'Godrej Properties Limited',
+        locality: 'Belathur, East Bangalore',
+        price: '₹1.24 Cr',
+        rate: '₹9,600 / sq.ft',
+        config: '3 BHK • 1,529 sq.ft',
+        carpet: '69% Carpet',
+        score: '8.4 / 10',
+        image: '../../images/hero_modern_residence.jpg'
+      },
+      {
+        id: 'hyd-3',
+        name: 'Rajapushpa Provincia',
+        company: 'Sobha Limited',
+        locality: 'Narsingi, West Hyderabad',
+        price: '₹1.62 Cr',
+        rate: '₹9,200 / sq.ft',
+        config: '3 BHK • 1,760 sq.ft',
+        carpet: '71% Carpet',
+        score: '8.7 / 10',
+        image: '../../images/property_pune.jpg'
+      },
+      {
+        id: 'hyd-4',
+        name: 'Prestige Tranquil',
+        company: 'Prestige Estates Projects Limited',
+        locality: 'Kokapet, West Hyderabad',
+        price: '₹1.92 Cr',
+        rate: '₹10,400 / sq.ft',
+        config: '3 BHK • 1,845 sq.ft',
+        carpet: '72% Carpet',
+        score: '9.1 / 10',
+        image: '../../images/hyderabad_residences.jpg'
+      },
+      {
+        id: 'del-1',
+        name: 'Godrej South Estate',
+        company: 'Godrej Properties Limited',
+        locality: 'Okhla Phase III, South Delhi',
+        price: '₹1.95 Cr',
+        rate: '₹16,800 / sq.ft',
+        config: '3 BHK • 1,620 sq.ft',
+        carpet: '71% Carpet',
+        score: '8.9 / 10',
+        image: '../../images/delhi_residences.jpg'
+      },
+      {
+        id: 'del-2',
+        name: 'DLF Capital Greens',
+        company: 'DLF Limited',
+        locality: 'Moti Nagar, West Delhi',
+        price: '₹1.72 Cr',
+        rate: '₹14,200 / sq.ft',
+        config: '3 BHK • 1,540 sq.ft',
+        carpet: '70% Carpet',
+        score: '8.7 / 10',
+        image: '../../images/property_mumbai.jpg'
+      }
+    ];
+
+    var activeCompany = 'All Companies';
+
+    function selectCompany(company) {
+      activeCompany = company;
+      renderCompanies();
+      renderAgentFlats();
+    }
+
+    function renderCompanies() {
+      var container = document.getElementById('company-filters');
+      container.innerHTML = COMPANIES.map(function (company) {
+        if (company === 'All Companies') {
+          var cls = 'px-gutter-md py-gutter-sm min-h-[40px] rounded-md bg-secondary text-on-secondary font-label text-label-md transition-colors duration-state-change cursor-pointer';
+          return (
+            '<button type="button" onclick="selectCompany(\'All Companies\')" class="' + cls + '">' +
+              '<span data-design-text-token="label-md">' + company + '</span>' +
+            '</button>'
+          );
+        }
+        return (
+          '<a href="../agent-portal/CompanyProjects.html?company=' + encodeURIComponent(company) + '" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-sm min-h-[40px] rounded-md bg-surface border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary font-label text-label-md transition-colors duration-state-change">' +
+            '<span data-design-text-token="label-md">' + company + '</span>' +
+            '<span class="material-symbols-outlined text-title-sm" aria-hidden="true">open_in_new</span>' +
+          '</a>'
+        );
+      }).join('');
+    }
+
+    function renderAgentFlats() {
+      var filtered = AGENT_FLATS.filter(function (flat) {
+        return activeCompany === 'All Companies' || flat.company === activeCompany;
+      });
+      document.getElementById('agent-flats-count').textContent = filtered.length + ' properties';
+
+      var grid = document.getElementById('agent-flats-grid');
+      grid.innerHTML = filtered.map(function (flat) {
+        return (
+          '<article class="h-full rounded-lg bg-surface-container border border-outline-variant p-gutter-lg shadow-sm flex flex-col justify-between gap-gutter-md">' +
+            '<div class="flex flex-col gap-gutter-md">' +
+              '<div class="relative h-48 w-full rounded-md overflow-hidden bg-surface-container-low">' +
+                '<img src="' + flat.image + '" alt="' + flat.name + '" class="w-full h-full object-cover" />' +
+              '</div>' +
+              '<div class="flex items-start justify-between gap-gutter-sm">' +
+                '<div class="flex flex-col gap-gutter-xs">' +
+                  '<span class="font-mono text-mono-sm text-secondary" data-design-text-token="mono-sm">' + flat.company + '</span>' +
+                  '<h3 class="font-title text-title-lg text-on-surface" data-design-text-token="title-lg">' + flat.name + '</h3>' +
+                  '<p class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">' + flat.locality + '</p>' +
+                '</div>' +
+                '<span class="px-gutter-sm py-gutter-xs rounded-DEFAULT bg-success-container text-on-success-container font-mono text-mono-sm tabular-nums shrink-0" data-design-text-token="mono-sm">' + flat.score + '</span>' +
+              '</div>' +
+              '<div class="grid grid-cols-2 gap-gutter-sm pt-gutter-sm border-t border-outline-variant">' +
+                '<div class="flex flex-col">' +
+                  '<span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Price</span>' +
+                  '<span class="font-mono text-mono-md text-on-surface tabular-nums" data-design-text-token="mono-md">' + flat.price + '</span>' +
+                '</div>' +
+                '<div class="flex flex-col">' +
+                  '<span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Efficiency</span>' +
+                  '<span class="font-mono text-mono-md text-on-surface tabular-nums" data-design-text-token="mono-md">' + flat.carpet + '</span>' +
+                '</div>' +
+              '</div>' +
+              '<p class="font-body text-body-sm text-on-surface-variant tabular-nums" data-design-text-token="body-sm">' + flat.config + ' • ' + flat.rate + '</p>' +
+            '</div>' +
+            '<a href="../flat-detail/FlatDetail.html?id=' + flat.id + '" class="w-full inline-flex items-center justify-center gap-gutter-xs px-gutter-md py-gutter-sm min-h-[44px] rounded-md bg-secondary text-on-secondary font-label text-label-md hover:opacity-90 transition-colors duration-state-change">' +
+              '<span data-design-text-token="label-md">Go</span>' +
+              '<span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_forward</span>' +
+            '</a>' +
+          '</article>'
+        );
+      }).join('');
+    }
+
+    renderCompanies();
+    renderAgentFlats();
+  </script>
+
+
+</body></html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlassWindow — Customer Login &amp; Sign Up</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#0F4C5C',
+        'on-primary': '#FFFFFF',
+        'primary-container': '#D2E8ED',
+        'on-primary-container': '#09323D',
+        'secondary': '#B44D27',
+        'on-secondary': '#FFFFFF',
+        'secondary-container': '#FCE8E0',
+        'on-secondary-container': '#5C220D',
+        'accent': '#D97736',
+        'on-accent': '#2A2A2A',
+        'surface': '#F2F5F3',
+        'surface-container-low': '#E9EFEA',
+        'surface-container': '#FFFFFF',
+        'surface-container-high': '#DDE6E0',
+        'on-surface': '#152226',
+        'on-surface-variant': '#4B5E63',
+        'outline': '#8FA3A8',
+        'outline-variant': '#D0DDD7',
+        'success': '#1F7A4C',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'error': '#B91C1C',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '64px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Playfair Display"', 'sans-serif'],
+        'headline': ['"Montserrat"', 'sans-serif'],
+        'title': ['"Montserrat"', 'sans-serif'],
+        'body': ['"Montserrat"', 'sans-serif'],
+        'label': ['"Montserrat"', 'sans-serif'],
+        'mono': ['"Red Hat Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-0.75px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md': ['38px', { lineHeight: '46px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['34px', { lineHeight: '42px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.3px', fontWeight: '600' }],
+        'mono-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Red+Hat+Mono:wght@500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+    @keyframes glassEnter {
+      from { opacity: 0; transform: translateY(16px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .animate-glass-enter {
+      animation: glassEnter 350ms cubic-bezier(0.2, 0, 0, 1) both;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .animate-glass-enter { animation: none; }
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col bg-surface text-on-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-surface-container/90 backdrop-blur-md border-b border-outline-variant">
+      <div class="max-w-7xl mx-auto px-gutter-lg h-20 flex items-center justify-between gap-gutter-md">
+        <a href="../homepage/GlassWindowHomepage.html" class="flex items-center gap-gutter-sm shrink-0 group">
+          <span class="w-9 h-9 rounded-DEFAULT bg-primary text-on-primary flex items-center justify-center transition-transform duration-state-change group-hover:scale-105">
+            <span class="material-symbols-outlined text-title-lg" aria-hidden="true">window</span>
+          </span>
+          <span class="font-display text-headline-sm text-primary tracking-tight" data-design-text-token="headline-sm">GlassWindow</span>
+        </a>
+
+        <a href="../homepage/GlassWindowHomepage.html" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-md bg-surface-container border border-outline-variant font-label text-label-md text-on-surface-variant hover:text-primary hover:border-primary transition-colors duration-state-change">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_back</span>
+          <span data-design-text-token="label-md">All Profiles</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="relative flex-1 flex items-center justify-center py-section overflow-hidden bg-surface">
+
+      <!-- Cross-Fading House Background Slideshow -->
+      <div aria-hidden="true" class="absolute inset-0 z-0 pointer-events-none">
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrB3jP7Jo0hGOQVD7bwLSLpPDWeTjncFURZG832qR5rZcOBCNkWuLExTHG6eAs0L4fqSL92PsixXTyrktkrcog3LOGyO4zSSHp1whxjfMklaMBjlsR0Zh6GH4LTS0vDOLehbJ1WBr8GX4_jQdzsuZQARORd0UENypmhaipamLsxjomZrs2wxq7U3TSBbOpAqW4iYvRSvb4ulENmYUel5-DbctPkscHXdAKbtLLLdSl6huMnv3ZLKZ4V4PFGo" alt class="bg-slide absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000 ease-out">
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrAlEwoqWO9QoNGiY5iOZY1fyczDC6s3upnEqebfdtDcq-9ImgDeFFPIc3Nh6bsEHQ3FzMaIFiHTS3lReeEzMryRZpQGBcTngG3v7c2bKaheKGy31gZtZa9rt3z6qtf2ZBjPermvREevjuVlclTNPKAVOReS1aSb2ioeavO4qPmuoL7Y9eIFBzwWJGb9mYwLFLEvhvXUKpRxpBuIUctqfEeyxXbETziF9X5UQ6zyELzMv971j6F81VDj-r0oZ95HOQ" alt class="bg-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-out">
+        <img src="https://lh3.googleusercontent.com/aida/ALJJyrCpyR9bbKmH4qhsh4jyeUFaKbiaEbn_AxPeC9P1otiiBv7rNf0w9SrcZSaNPNogPQPat8QUbyc8PWgnZydFGkvFn_xS6PbyY6SZi-JZmZ4uMAzziY6KceJq65Nur-6XU068LVcjXLCtMzV98B9YLlJwE5sMu1QDp_93qP9YZPiMRPm4XaXytQBwfTOwJRd5fGYd8mVO6lSD3KNq-tzo9K3_xDdZxA2ciJXbl11dq9zGQbxXYKnRAcCoRTJcRmqNwg" alt class="bg-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-out">
+        <div class="absolute inset-0 bg-surface/45"></div>
+      </div>
+
+      <!-- Frosted Glass Customer Auth Card -->
+      <section class="relative z-10 w-full max-w-md px-gutter-lg animate-glass-enter">
+        <div class="rounded-xl bg-surface-container/85 backdrop-blur-md border border-outline-variant p-gutter-xl shadow-lg flex flex-col gap-gutter-lg">
+          <div class="flex items-center justify-between gap-gutter-sm">
+            <div class="w-11 h-11 rounded-md bg-primary-container text-on-primary-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-headline-sm" aria-hidden="true">person</span>
+            </div>
+            <span class="px-gutter-sm py-gutter-xs rounded-full bg-primary-container text-on-primary-container font-label text-label-sm" data-design-text-token="label-sm">Customer Portal</span>
+          </div>
+
+          <!-- Sign In / Sign Up Switcher -->
+          <div data-component-id="tabs-horizontal" data-component-type="tabs" data-component-variant="horizontal">
+            <div role="tablist" aria-label="Customer authentication mode" class="grid grid-cols-2 p-gutter-xs rounded-md bg-surface-container-low border border-outline-variant gap-gutter-xs">
+              <button type="button" role="tab" id="tab-signin" aria-selected="true" onclick="setAuthMode(&#39;signin&#39;)" class="px-gutter-md py-gutter-sm rounded-DEFAULT bg-surface-container text-primary shadow-sm font-label text-label-md transition-colors duration-state-change">
+                <span data-design-text-token="label-md">Sign In</span>
+              </button>
+              <button type="button" role="tab" id="tab-signup" aria-selected="false" onclick="setAuthMode(&#39;signup&#39;)" class="px-gutter-md py-gutter-sm rounded-DEFAULT text-on-surface-variant hover:text-on-surface font-label text-label-md transition-colors duration-state-change">
+                <span data-design-text-token="label-md">Sign Up</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-gutter-xs">
+            <h1 id="auth-heading" class="font-display text-headline-lg-mobile lg:text-headline-md text-on-surface" data-design-text-token="headline-md">Customer Login</h1>
+            <p id="auth-subtext" class="font-body text-body-md text-on-surface-variant" data-design-text-token="body-md">
+              Sign in with your username and password to view your shortlisted homes.
+            </p>
+          </div>
+
+          <form onsubmit="handleCustomerSubmit(event)" class="flex flex-col gap-gutter-md">
+            <!-- Sign Up Only Fields -->
+            <div id="signup-fields" class="hidden flex flex-col gap-gutter-md">
+              <label data-component-id="input-field-signup-text" data-component-type="input-field" data-component-variant="text" class="flex flex-col gap-gutter-xs">
+                <span class="font-label text-label-md text-on-surface" data-design-text-token="label-md">Full name</span>
+                <input id="customer-fullname" type="text" placeholder="Enter your full name" class="w-full min-h-[44px] px-gutter-md py-gutter-sm rounded-DEFAULT bg-surface-container border border-outline-variant text-on-surface font-body text-body-md placeholder:text-outline focus:border-primary focus:ring-1 focus:ring-primary transition-colors duration-state-change">
+              </label>
+
+              <label data-component-id="input-field-signup-icon" data-component-type="input-field" data-component-variant="with-icon" class="flex flex-col gap-gutter-xs">
+                <span class="font-label text-label-md text-on-surface" data-design-text-token="label-md">Email address</span>
+                <div class="relative flex items-center">
+                  <span aria-hidden="true" class="material-symbols-outlined text-title-lg text-on-surface-variant absolute left-3 pointer-events-none">mail</span>
+                  <input id="customer-email" type="email" placeholder="you@example.com" class="w-full min-h-[44px] pl-10 pr-gutter-md py-gutter-sm rounded-DEFAULT bg-surface-container border border-outline-variant text-on-surface font-body text-body-md placeholder:text-outline focus:border-primary focus:ring-1 focus:ring-primary transition-colors duration-state-change">
+                </div>
+              </label>
+            </div>
+
+            <label data-component-id="input-field-icon" data-component-type="input-field" data-component-variant="with-icon" class="flex flex-col gap-gutter-xs">
+              <span class="font-label text-label-md text-on-surface" data-design-text-token="label-md">Username</span>
+              <div class="relative flex items-center">
+                <span aria-hidden="true" class="material-symbols-outlined text-title-lg text-on-surface-variant absolute left-3 pointer-events-none">person</span>
+                <input id="customer-username" type="text" required autocomplete="username" placeholder="Enter your username" class="w-full min-h-[44px] pl-10 pr-gutter-md py-gutter-sm rounded-DEFAULT bg-surface-container border border-outline-variant text-on-surface font-body text-body-md placeholder:text-outline focus:border-primary focus:ring-1 focus:ring-primary transition-colors duration-state-change">
+              </div>
+            </label>
+
+            <label data-component-id="input-field-text" data-component-type="input-field" data-component-variant="password" class="flex flex-col gap-gutter-xs">
+              <span class="font-label text-label-md text-on-surface" data-design-text-token="label-md">Password</span>
+              <div class="relative flex items-center">
+                <input id="customer-password" type="password" required autocomplete="current-password" placeholder="Enter your password" class="w-full min-h-[44px] pl-gutter-md pr-10 py-gutter-sm rounded-DEFAULT bg-surface-container border border-outline-variant text-on-surface font-body text-body-md placeholder:text-outline focus:border-primary focus:ring-1 focus:ring-primary transition-colors duration-state-change">
+                <button type="button" onclick="togglePassword(&#39;customer-password&#39;, &#39;customer-eye&#39;)" aria-label="Toggle password visibility" class="absolute right-3 text-on-surface-variant hover:text-on-surface transition-colors duration-state-change">
+                  <span id="customer-eye" class="material-symbols-outlined text-title-lg" aria-hidden="true">visibility</span>
+                </button>
+              </div>
+            </label>
+
+            <div id="customer-feedback" class="hidden p-gutter-sm rounded-DEFAULT bg-success-container text-on-success-container font-body text-body-sm"></div>
+
+            <button id="customer-submit-btn" type="submit" data-component-id="button-primary" data-component-type="button" data-component-variant="primary" class="w-full inline-flex items-center justify-center gap-gutter-sm px-gutter-lg py-gutter-sm min-h-[44px] rounded-md bg-primary text-on-primary font-label text-label-lg hover:opacity-90 active:scale-[0.99] transition-all duration-state-change">
+              <span data-design-text-token="label-lg">Sign in to Customer Portal</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 bg-surface-container/90 backdrop-blur-md border-t border-outline-variant py-gutter-lg">
+      <div class="max-w-7xl mx-auto px-gutter-lg flex flex-col sm:flex-row items-center justify-between gap-gutter-sm">
+        <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">© 2026 GlassWindow Advisory Pvt. Ltd.</span>
+        <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Customer Portal</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    var authMode = 'signin';
+    var slideIndex = 0;
+
+    setInterval(function () {
+      var slides = document.querySelectorAll('.bg-slide');
+      if (!slides.length) return;
+      slides[slideIndex].classList.remove('opacity-100');
+      slides[slideIndex].classList.add('opacity-0');
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].classList.remove('opacity-0');
+      slides[slideIndex].classList.add('opacity-100');
+    }, 4500);
+
+    function setAuthMode(mode) {
+      authMode = mode;
+      var tabIn = document.getElementById('tab-signin');
+      var tabUp = document.getElementById('tab-signup');
+      var signupFields = document.getElementById('signup-fields');
+      var heading = document.getElementById('auth-heading');
+      var subtext = document.getElementById('auth-subtext');
+      var submitBtn = document.getElementById('customer-submit-btn');
+      var fullname = document.getElementById('customer-fullname');
+      var email = document.getElementById('customer-email');
+
+      if (mode === 'signup') {
+        tabUp.setAttribute('aria-selected', 'true');
+        tabUp.className = 'px-gutter-md py-gutter-sm rounded-DEFAULT bg-surface-container text-primary shadow-sm font-label text-label-md transition-colors duration-state-change';
+        tabIn.setAttribute('aria-selected', 'false');
+        tabIn.className = 'px-gutter-md py-gutter-sm rounded-DEFAULT text-on-surface-variant hover:text-on-surface font-label text-label-md transition-colors duration-state-change';
+        signupFields.classList.remove('hidden');
+        fullname.required = true;
+        email.required = true;
+        heading.textContent = 'Create Customer Account';
+        subtext.textContent = 'Sign up to explore verified flats across Hyderabad, Bangalore, and Delhi.';
+        submitBtn.querySelector('span').textContent = 'Create Customer Account';
+      } else {
+        tabIn.setAttribute('aria-selected', 'true');
+        tabIn.className = 'px-gutter-md py-gutter-sm rounded-DEFAULT bg-surface-container text-primary shadow-sm font-label text-label-md transition-colors duration-state-change';
+        tabUp.setAttribute('aria-selected', 'false');
+        tabUp.className = 'px-gutter-md py-gutter-sm rounded-DEFAULT text-on-surface-variant hover:text-on-surface font-label text-label-md transition-colors duration-state-change';
+        signupFields.classList.add('hidden');
+        fullname.required = false;
+        email.required = false;
+        heading.textContent = 'Customer Login';
+        subtext.textContent = 'Sign in with your username and password to view your shortlisted homes.';
+        submitBtn.querySelector('span').textContent = 'Sign in to Customer Portal';
+      }
+    }
+
+    function togglePassword(inputId, iconId) {
+      var input = document.getElementById(inputId);
+      var icon = document.getElementById(iconId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
+
+    function handleCustomerSubmit(event) {
+      event.preventDefault();
+      var username = document.getElementById('customer-username').value;
+      var feedback = document.getElementById('customer-feedback');
+      feedback.textContent = (authMode === 'signup' ? 'Account created for ' : 'Welcome back, ') + username + '. Redirecting to city selection...';
+      feedback.classList.remove('hidden');
+      setTimeout(function () {
+        window.location.href = '../city-select/CitySelection.html';
+      }, 650);
+    }
+  </script>
+
+
+</body></html>

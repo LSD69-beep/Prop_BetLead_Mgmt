@@ -1,0 +1,673 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlassWindow — Developer Stocks &amp; Market</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#0F4C5C',
+        'on-primary': '#FFFFFF',
+        'primary-container': '#D2E8ED',
+        'on-primary-container': '#09323D',
+        'secondary': '#B44D27',
+        'on-secondary': '#FFFFFF',
+        'secondary-container': '#FCE8E0',
+        'on-secondary-container': '#5C220D',
+        'accent': '#D97736',
+        'on-accent': '#2A2A2A',
+        'surface': '#F2F5F3',
+        'surface-container-low': '#E9EFEA',
+        'surface-container': '#FFFFFF',
+        'surface-container-high': '#DDE6E0',
+        'on-surface': '#152226',
+        'on-surface-variant': '#4B5E63',
+        'outline': '#8FA3A8',
+        'outline-variant': '#D0DDD7',
+        'success': '#1F7A4C',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'error': '#B91C1C',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '64px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Playfair Display"', 'sans-serif'],
+        'headline': ['"Montserrat"', 'sans-serif'],
+        'title': ['"Montserrat"', 'sans-serif'],
+        'body': ['"Montserrat"', 'sans-serif'],
+        'label': ['"Montserrat"', 'sans-serif'],
+        'mono': ['"Red Hat Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-0.75px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md': ['38px', { lineHeight: '46px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['34px', { lineHeight: '42px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.3px', fontWeight: '600' }],
+        'mono-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Red+Hat+Mono:wght@500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col bg-surface text-on-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-surface-container border-b border-outline-variant">
+      <div class="max-w-7xl mx-auto px-gutter-lg h-20 flex items-center justify-between gap-gutter-md">
+        <a href="../homepage/GlassWindowHomepage.html" class="flex items-center gap-gutter-sm shrink-0">
+          <span class="w-9 h-9 rounded-DEFAULT bg-primary text-on-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-title-lg" aria-hidden="true">window</span>
+          </span>
+          <span class="font-display text-headline-sm text-primary tracking-tight" data-design-text-token="headline-sm">GlassWindow</span>
+        </a>
+
+        <a href="../listings/MatchingFlats.html" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-md bg-surface-container border border-outline-variant font-label text-label-md text-on-surface-variant hover:text-primary hover:border-primary transition-colors duration-state-change">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_back</span>
+          <span data-design-text-token="label-md">Back to Flats</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 py-gutter-xl px-gutter-lg bg-surface">
+      <div class="max-w-7xl mx-auto w-full flex flex-col gap-gutter-xl">
+
+        <!-- Top Developer Dropdown Selector -->
+        <section aria-label="Select real estate developer" class="rounded-xl bg-surface-container border border-outline-variant p-gutter-lg shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-gutter-md">
+          <div class="flex flex-col gap-gutter-xs">
+            <label for="developer-select" class="font-title text-title-md text-on-surface" data-design-text-token="title-md">
+              Select Real Estate Developer
+            </label>
+            <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">
+              Choose a listed company to view its live market quote, graph, and details
+            </span>
+          </div>
+
+          <select id="developer-select" onchange="selectDeveloper(this.value)" class="w-full sm:w-96 min-h-[44px] rounded-md bg-surface border border-outline-variant px-gutter-md py-gutter-sm font-title text-title-md text-on-surface focus:border-primary focus:ring-primary cursor-pointer">
+            <!-- Populated by script -->
+          </select>
+        </section>
+
+        <!-- Main Stock Graph + Company Details Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-xl items-start">
+
+          <!-- Left: Google-Finance-Style Quote Header & Market Graph -->
+          <section aria-label="Stock quote and market chart" class="lg:col-span-8 rounded-xl bg-surface-container border border-outline-variant p-gutter-xl shadow-sm flex flex-col gap-gutter-lg">
+
+            <!-- Company Name, Ticker & Follow Button -->
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-gutter-md pb-gutter-md border-b border-outline-variant">
+              <div class="flex flex-col gap-gutter-xs">
+                <h1 id="dev-name" class="font-display text-display-md-mobile lg:text-display-md text-on-surface text-balance" data-design-text-token="display-md">
+                  Prestige Estates Projects Limited
+                </h1>
+                <span id="dev-ticker" class="font-mono text-mono-md text-on-surface-variant" data-design-text-token="mono-md">
+                  NSE: PRESTIGE
+                </span>
+              </div>
+
+              <button id="follow-btn" type="button" onclick="toggleFollow()" class="shrink-0 inline-flex items-center justify-center gap-gutter-xs px-gutter-lg py-gutter-sm min-h-[44px] rounded-full bg-primary text-on-primary font-label text-label-lg hover:opacity-90 transition-colors duration-state-change cursor-pointer">
+                <span id="follow-icon" class="material-symbols-outlined text-title-md" aria-hidden="true">add</span>
+                <span id="follow-label" data-design-text-token="label-lg">Follow</span>
+              </button>
+            </div>
+
+            <!-- Live Price, Currency, Change Today & Timestamp -->
+            <div class="flex flex-col gap-gutter-xs">
+              <div class="flex items-baseline gap-gutter-sm">
+                <span id="dev-price" class="font-display text-display-lg-mobile lg:text-display-lg text-on-surface tabular-nums" data-design-text-token="display-lg">1,657.40</span>
+                <span class="font-title text-title-md text-on-surface-variant" data-design-text-token="title-md">INR</span>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-gutter-sm">
+                <span id="dev-change" class="inline-flex items-center gap-gutter-xs font-title text-title-md text-error tabular-nums" data-design-text-token="title-md">
+                  2.02% −34.10 today
+                </span>
+              </div>
+
+              <p id="dev-timestamp" class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">
+                18 Nov, 3:30 pm IST • Disclaimer
+              </p>
+            </div>
+
+            <!-- Timeframe Tabs -->
+            <div class="flex items-center justify-between gap-gutter-md pt-gutter-sm border-t border-outline-variant">
+              <div class="flex flex-wrap items-center gap-gutter-xs" role="group" aria-label="Chart timeframe">
+                <button type="button" onclick="setRange(&#39;1D&#39;)" class="range-btn px-gutter-sm py-gutter-xs rounded-DEFAULT font-mono text-mono-sm cursor-pointer">1D</button>
+                <button type="button" onclick="setRange(&#39;5D&#39;)" class="range-btn px-gutter-sm py-gutter-xs rounded-DEFAULT font-mono text-mono-sm cursor-pointer">5D</button>
+                <button type="button" onclick="setRange(&#39;1M&#39;)" class="range-btn px-gutter-sm py-gutter-xs rounded-DEFAULT font-mono text-mono-sm cursor-pointer">1M</button>
+                <button type="button" onclick="setRange(&#39;6M&#39;)" class="range-btn px-gutter-sm py-gutter-xs rounded-DEFAULT font-mono text-mono-sm cursor-pointer">6M</button>
+                <button type="button" onclick="setRange(&#39;1Y&#39;)" class="range-btn px-gutter-sm py-gutter-xs rounded-DEFAULT font-mono text-mono-sm cursor-pointer">1Y</button>
+                <button type="button" onclick="setRange(&#39;5Y&#39;)" class="range-btn px-gutter-sm py-gutter-xs rounded-DEFAULT font-mono text-mono-sm cursor-pointer">5Y</button>
+              </div>
+              <span class="font-mono text-mono-sm text-on-surface-variant hidden sm:inline" data-design-text-token="mono-sm">Prev close dotted</span>
+            </div>
+
+            <!-- Interactive SVG Market Graph -->
+            <div class="w-full rounded-lg bg-surface-container-low border border-outline-variant p-gutter-md">
+              <svg id="stock-chart-svg" viewBox="0 0 720 280" class="w-full h-auto" role="img" aria-label="Developer stock price graph">
+                <!-- Grid & Chart rendered by script -->
+              </svg>
+            </div>
+
+            <!-- Key Market Stats Row -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-gutter-md pt-gutter-sm border-t border-outline-variant">
+              <div class="flex flex-col gap-gutter-xs">
+                <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Prev Close</span>
+                <span id="stat-prev" class="font-mono text-mono-md text-on-surface tabular-nums" data-design-text-token="mono-md">₹1,691.50</span>
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Market Cap</span>
+                <span id="stat-mcap" class="font-mono text-mono-md text-on-surface tabular-nums" data-design-text-token="mono-md">₹71,420 Cr</span>
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">52W High</span>
+                <span id="stat-high" class="font-mono text-mono-md text-on-surface tabular-nums" data-design-text-token="mono-md">₹2,074.00</span>
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">P/E Ratio</span>
+                <span id="stat-pe" class="font-mono text-mono-md text-on-surface tabular-nums" data-design-text-token="mono-md">50.4x</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Right: Company Details & Linked Flat -->
+          <aside aria-label="Company details" class="lg:col-span-4 rounded-xl bg-surface-container border border-outline-variant p-gutter-xl shadow-sm flex flex-col gap-gutter-lg">
+            <h2 class="font-headline text-headline-sm text-on-surface pb-gutter-sm border-b border-outline-variant" data-design-text-token="headline-sm">
+              About Company
+            </h2>
+
+            <p id="dev-overview" class="font-body text-body-md text-on-surface-variant text-pretty" data-design-text-token="body-md">
+              One of India&#39;s largest diversified real estate groups spanning large townships, luxury apartments, and commercial office parks.
+            </p>
+
+            <dl class="flex flex-col gap-gutter-md pt-gutter-sm border-t border-outline-variant">
+              <div class="flex items-center justify-between gap-gutter-sm">
+                <dt class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Headquarters</dt>
+                <dd id="dev-hq" class="font-title text-title-md text-on-surface text-right" data-design-text-token="title-md">Bengaluru</dd>
+              </div>
+              <div class="flex items-center justify-between gap-gutter-sm">
+                <dt class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Founded</dt>
+                <dd id="dev-founded" class="font-mono text-mono-md text-on-surface tabular-nums" data-design-text-token="mono-md">1986</dd>
+              </div>
+              <div class="flex items-center justify-between gap-gutter-sm">
+                <dt class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Delivered</dt>
+                <dd id="dev-delivered" class="font-mono text-mono-md text-on-surface tabular-nums" data-design-text-token="mono-md">188M sq.ft</dd>
+              </div>
+              <div class="flex items-center justify-between gap-gutter-sm">
+                <dt class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">GlassWindow Score</dt>
+                <dd id="dev-score" class="font-mono text-mono-md text-primary tabular-nums" data-design-text-token="mono-md">9.1 / 10</dd>
+              </div>
+            </dl>
+
+            <div class="pt-gutter-md border-t border-outline-variant flex flex-col gap-gutter-sm">
+              <span class="font-label text-label-md text-on-surface-variant" data-design-text-token="label-md">Featured Flat on GlassWindow</span>
+              <a id="dev-flat-link" href="../flat-detail/FlatDetail.html?id=blr-2" class="rounded-lg bg-surface-container-low border border-outline-variant p-gutter-md flex items-center justify-between gap-gutter-sm hover:border-primary transition-colors duration-state-change">
+                <div class="flex flex-col">
+                  <span id="dev-flat-name" class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Prestige Park Grove</span>
+                  <span id="dev-flat-price" class="font-mono text-mono-sm text-on-surface-variant tabular-nums" data-design-text-token="mono-sm">₹1,85,00,000</span>
+                </div>
+                <span class="material-symbols-outlined text-title-lg text-primary" aria-hidden="true">arrow_forward</span>
+              </a>
+            </div>
+          </aside>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container border-t border-outline-variant py-gutter-lg">
+      <div class="max-w-7xl mx-auto px-gutter-lg flex flex-col sm:flex-row items-center justify-between gap-gutter-sm">
+        <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">© 2026 GlassWindow Advisory Pvt. Ltd.</span>
+        <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Developer Stocks</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    var DEVELOPERS = [
+      {
+        id: 'PRESTIGE',
+        name: 'Prestige Estates Projects Limited',
+        shortName: 'Prestige Estates',
+        ticker: 'NSE: PRESTIGE',
+        hq: 'Bengaluru',
+        price: '1,657.40',
+        changeText: '↓ 2.02% −34.10 today',
+        positive: false,
+        timestamp: '18 Nov, 3:30 pm IST • Disclaimer',
+        prevClose: '₹1,691.50',
+        mcap: '₹71,420 Cr',
+        high52: '₹2,074.00',
+        pe: '50.4x',
+        founded: '1986',
+        delivered: '188M sq.ft',
+        score: '9.1 / 10',
+        overview: 'One of India\'s largest diversified real estate groups spanning large townships, luxury apartments, and commercial office parks.',
+        flatId: 'blr-2',
+        flatName: 'Prestige Park Grove',
+        flatPrice: '₹1,85,00,000',
+        series: {
+          '1D': [1691.5, 1688, 1679, 1682, 1671, 1665, 1660, 1657.4],
+          '5D': [1712, 1705, 1698, 1694, 1688, 1675, 1664, 1657.4],
+          '1M': [1740, 1725, 1732, 1710, 1695, 1682, 1668, 1657.4],
+          '6M': [1510, 1580, 1620, 1695, 1710, 1690, 1672, 1657.4],
+          '1Y': [1140, 1280, 1420, 1590, 1740, 1710, 1680, 1657.4],
+          '5Y': [290, 440, 520, 760, 1180, 1540, 1690, 1657.4]
+        },
+        labels: {
+          '1D': ['9:15', '10:15', '11:15', '12:15', '1:15', '2:15', '3:00', '3:30'],
+          '5D': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Mon', 'Tue', 'Now'],
+          '1M': ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'Now'],
+          '6M': ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Now'],
+          '1Y': ['Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2', 'Q3', 'Now'],
+          '5Y': ['2020', '2021', '2022', '2023', '2024', '2025', 'YTD', 'Now']
+        }
+      },
+      {
+        id: 'SOBHA',
+        name: 'Sobha Limited',
+        shortName: 'Sobha Ltd.',
+        ticker: 'NSE: SOBHA',
+        hq: 'Bengaluru',
+        price: '1,642.50',
+        changeText: '↑ 3.42% +54.30 today',
+        positive: true,
+        timestamp: '18 Nov, 3:30 pm IST • Disclaimer',
+        prevClose: '₹1,588.20',
+        mcap: '₹17,560 Cr',
+        high52: '₹2,178.00',
+        pe: '44.8x',
+        founded: '1995',
+        delivered: '136M sq.ft',
+        score: '8.9 / 10',
+        overview: 'Backward-integrated residential developer known for in-house construction quality and timely RERA delivery across South India.',
+        flatId: 'blr-1',
+        flatName: 'Sobha Neopolis',
+        flatPrice: '₹1,68,00,000',
+        series: {
+          '1D': [1588.2, 1595, 1602, 1598, 1612, 1624, 1635, 1642.5],
+          '5D': [1545, 1560, 1572, 1580, 1598, 1615, 1630, 1642.5],
+          '1M': [1520, 1545, 1538, 1565, 1590, 1582, 1615, 1642.5],
+          '6M': [1390, 1435, 1480, 1460, 1530, 1575, 1610, 1642.5],
+          '1Y': [1180, 1290, 1410, 1560, 1490, 1580, 1605, 1642.5],
+          '5Y': [480, 650, 820, 990, 1210, 1450, 1580, 1642.5]
+        },
+        labels: {
+          '1D': ['9:15', '10:15', '11:15', '12:15', '1:15', '2:15', '3:00', '3:30'],
+          '5D': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Mon', 'Tue', 'Now'],
+          '1M': ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'Now'],
+          '6M': ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Now'],
+          '1Y': ['Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2', 'Q3', 'Now'],
+          '5Y': ['2020', '2021', '2022', '2023', '2024', '2025', 'YTD', 'Now']
+        }
+      },
+      {
+        id: 'BRIGADE',
+        name: 'Brigade Enterprises Limited',
+        shortName: 'Brigade Enterprises',
+        ticker: 'NSE: BRIGADE',
+        hq: 'Bengaluru',
+        price: '1,218.75',
+        changeText: '↑ 1.65% +19.80 today',
+        positive: true,
+        timestamp: '18 Nov, 3:30 pm IST • Disclaimer',
+        prevClose: '₹1,198.95',
+        mcap: '₹29,740 Cr',
+        high52: '₹1,452.00',
+        pe: '48.4x',
+        founded: '1986',
+        delivered: '92M sq.ft',
+        score: '8.6 / 10',
+        overview: 'Integrated township and residential developer with strong recurring rental cash flows and high-density urban communities.',
+        flatId: 'blr-3',
+        flatName: 'Brigade Utopia',
+        flatPrice: '₹1,42,00,000',
+        series: {
+          '1D': [1198.95, 1201, 1204, 1200, 1208, 1212, 1215, 1218.75],
+          '5D': [1180, 1185, 1190, 1196, 1202, 1208, 1214, 1218.75],
+          '1M': [1160, 1172, 1168, 1185, 1196, 1205, 1210, 1218.75],
+          '6M': [1040, 1085, 1110, 1135, 1160, 1188, 1202, 1218.75],
+          '1Y': [880, 940, 1015, 1090, 1130, 1175, 1195, 1218.75],
+          '5Y': [240, 390, 510, 680, 920, 1110, 1180, 1218.75]
+        },
+        labels: {
+          '1D': ['9:15', '10:15', '11:15', '12:15', '1:15', '2:15', '3:00', '3:30'],
+          '5D': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Mon', 'Tue', 'Now'],
+          '1M': ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'Now'],
+          '6M': ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Now'],
+          '1Y': ['Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2', 'Q3', 'Now'],
+          '5Y': ['2020', '2021', '2022', '2023', '2024', '2025', 'YTD', 'Now']
+        }
+      },
+      {
+        id: 'GODREJPROP',
+        name: 'Godrej Properties Limited',
+        shortName: 'Godrej Properties',
+        ticker: 'NSE: GODREJPROP',
+        hq: 'Mumbai',
+        price: '2,695.40',
+        changeText: '↑ 2.85% +74.60 today',
+        positive: true,
+        timestamp: '18 Nov, 3:30 pm IST • Disclaimer',
+        prevClose: '₹2,620.80',
+        mcap: '₹81,210 Cr',
+        high52: '₹3,402.00',
+        pe: '59.2x',
+        founded: '1990',
+        delivered: '115M sq.ft',
+        score: '8.7 / 10',
+        overview: 'Pan-India residential leader with strong booking velocity across Bengaluru, NCR, Mumbai, and Pune.',
+        flatId: 'blr-4',
+        flatName: 'Godrej Splendour',
+        flatPrice: '₹1,24,00,000',
+        series: {
+          '1D': [2620.8, 2632, 2645, 2640, 2658, 2672, 2684, 2695.4],
+          '5D': [2590, 2605, 2618, 2630, 2648, 2665, 2680, 2695.4],
+          '1M': [2560, 2585, 2575, 2610, 2635, 2650, 2672, 2695.4],
+          '6M': [2310, 2390, 2440, 2485, 2540, 2610, 2655, 2695.4],
+          '1Y': [2080, 2240, 2410, 2590, 2620, 2645, 2670, 2695.4],
+          '5Y': [980, 1340, 1480, 1890, 2340, 2560, 2640, 2695.4]
+        },
+        labels: {
+          '1D': ['9:15', '10:15', '11:15', '12:15', '1:15', '2:15', '3:00', '3:30'],
+          '5D': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Mon', 'Tue', 'Now'],
+          '1M': ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'Now'],
+          '6M': ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Now'],
+          '1Y': ['Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2', 'Q3', 'Now'],
+          '5Y': ['2020', '2021', '2022', '2023', '2024', '2025', 'YTD', 'Now']
+        }
+      },
+      {
+        id: 'DLF',
+        name: 'DLF Limited',
+        shortName: 'DLF Ltd.',
+        ticker: 'NSE: DLF',
+        hq: 'Gurugram',
+        price: '842.60',
+        changeText: '↓ 0.94% −8.00 today',
+        positive: false,
+        timestamp: '18 Nov, 3:30 pm IST • Disclaimer',
+        prevClose: '₹850.60',
+        mcap: '₹2,08,540 Cr',
+        high52: '₹967.00',
+        pe: '54.6x',
+        founded: '1946',
+        delivered: '340M sq.ft',
+        score: '8.7 / 10',
+        overview: 'India\'s largest listed real estate company by market capitalization, anchored by prime NCR residential and Cyber City assets.',
+        flatId: 'del-2',
+        flatName: 'DLF Capital Greens',
+        flatPrice: '₹1,72,00,000',
+        series: {
+          '1D': [850.6, 849, 847.5, 848.2, 846, 844.5, 843.2, 842.6],
+          '5D': [862, 858, 855, 852, 850, 847, 844, 842.6],
+          '1M': [875, 868, 864, 858, 852, 848, 845, 842.6],
+          '6M': [745, 762, 778, 792, 810, 824, 835, 842.6],
+          '1Y': [698, 735, 768, 795, 812, 825, 832, 842.6],
+          '5Y': [185, 290, 385, 510, 690, 790, 825, 842.6]
+        },
+        labels: {
+          '1D': ['9:15', '10:15', '11:15', '12:15', '1:15', '2:15', '3:00', '3:30'],
+          '5D': ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Mon', 'Tue', 'Now'],
+          '1M': ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'Now'],
+          '6M': ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Now'],
+          '1Y': ['Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2', 'Q3', 'Now'],
+          '5Y': ['2020', '2021', '2022', '2023', '2024', '2025', 'YTD', 'Now']
+        }
+      }
+    ];
+
+    var activeDevId = 'PRESTIGE';
+    var activeRange = '1D';
+    var followedIds = {};
+
+    function initStocks() {
+      var params = new URLSearchParams(window.location.search);
+      var devParam = params.get('dev');
+      if (devParam) {
+        for (var i = 0; i < DEVELOPERS.length; i++) {
+          if (DEVELOPERS[i].id === devParam) {
+            activeDevId = devParam;
+            break;
+          }
+        }
+      }
+      renderDropdown();
+      renderRangeButtons();
+      renderSelectedDeveloper();
+    }
+
+    function selectDeveloper(id) {
+      activeDevId = id;
+      renderDropdown();
+      renderSelectedDeveloper();
+    }
+
+    function setRange(range) {
+      activeRange = range;
+      renderRangeButtons();
+      renderSelectedDeveloper();
+    }
+
+    function toggleFollow() {
+      followedIds[activeDevId] = !followedIds[activeDevId];
+      renderFollowButton();
+    }
+
+    function renderFollowButton() {
+      var isFollowed = !!followedIds[activeDevId];
+      var btn = document.getElementById('follow-btn');
+      var icon = document.getElementById('follow-icon');
+      var label = document.getElementById('follow-label');
+      if (isFollowed) {
+        btn.className = 'shrink-0 inline-flex items-center justify-center gap-gutter-xs px-gutter-lg py-gutter-sm min-h-[44px] rounded-full bg-primary-container text-on-primary-container border border-primary font-label text-label-lg transition-colors duration-state-change cursor-pointer';
+        icon.textContent = 'check';
+        label.textContent = 'Following';
+      } else {
+        btn.className = 'shrink-0 inline-flex items-center justify-center gap-gutter-xs px-gutter-lg py-gutter-sm min-h-[44px] rounded-full bg-primary text-on-primary font-label text-label-lg hover:opacity-90 transition-colors duration-state-change cursor-pointer';
+        icon.textContent = 'add';
+        label.textContent = 'Follow';
+      }
+    }
+
+    function getActiveDeveloper() {
+      for (var i = 0; i < DEVELOPERS.length; i++) {
+        if (DEVELOPERS[i].id === activeDevId) return DEVELOPERS[i];
+      }
+      return DEVELOPERS[0];
+    }
+
+    function renderDropdown() {
+      var select = document.getElementById('developer-select');
+      select.innerHTML = DEVELOPERS.map(function (dev) {
+        var selected = dev.id === activeDevId ? ' selected' : '';
+        return '<option value="' + dev.id + '"' + selected + '>' + dev.name + ' (' + dev.ticker + ')</option>';
+      }).join('');
+      select.value = activeDevId;
+    }
+
+    function renderRangeButtons() {
+      document.querySelectorAll('.range-btn').forEach(function (btn) {
+        var label = btn.textContent.trim();
+        if (label === activeRange) {
+          btn.className = 'range-btn px-gutter-sm py-gutter-xs rounded-DEFAULT bg-primary text-on-primary font-mono text-mono-sm cursor-pointer';
+        } else {
+          btn.className = 'range-btn px-gutter-sm py-gutter-xs rounded-DEFAULT bg-surface-container border border-outline-variant text-on-surface-variant hover:border-primary font-mono text-mono-sm cursor-pointer';
+        }
+      });
+    }
+
+    function renderSelectedDeveloper() {
+      var dev = getActiveDeveloper();
+      document.getElementById('dev-name').textContent = dev.name;
+      document.getElementById('dev-ticker').textContent = dev.ticker;
+      document.getElementById('dev-price').textContent = dev.price;
+
+      var changeEl = document.getElementById('dev-change');
+      changeEl.textContent = dev.changeText;
+      changeEl.className = dev.positive
+        ? 'inline-flex items-center gap-gutter-xs font-title text-title-md text-success tabular-nums'
+        : 'inline-flex items-center gap-gutter-xs font-title text-title-md text-error tabular-nums';
+
+      document.getElementById('dev-timestamp').textContent = dev.timestamp;
+      document.getElementById('stat-prev').textContent = dev.prevClose;
+      document.getElementById('stat-mcap').textContent = dev.mcap;
+      document.getElementById('stat-high').textContent = dev.high52;
+      document.getElementById('stat-pe').textContent = dev.pe;
+
+      document.getElementById('dev-overview').textContent = dev.overview;
+      document.getElementById('dev-hq').textContent = dev.hq;
+      document.getElementById('dev-founded').textContent = dev.founded;
+      document.getElementById('dev-delivered').textContent = dev.delivered;
+      document.getElementById('dev-score').textContent = dev.score;
+
+      document.getElementById('dev-flat-name').textContent = dev.flatName;
+      document.getElementById('dev-flat-price').textContent = dev.flatPrice;
+      document.getElementById('dev-flat-link').href = '../flat-detail/FlatDetail.html?id=' + dev.flatId;
+
+      renderFollowButton();
+      renderChart(dev);
+    }
+
+    function renderChart(dev) {
+      var data = dev.series[activeRange] || dev.series['1D'];
+      var labels = dev.labels[activeRange] || dev.labels['1D'];
+      var svg = document.getElementById('stock-chart-svg');
+
+      var strokeColor = dev.positive ? '#1F7A4C' : '#B91C1C';
+      var padLeft = 58;
+      var padRight = 24;
+      var padTop = 24;
+      var padBottom = 36;
+      var w = 720 - padLeft - padRight;
+      var h = 280 - padTop - padBottom;
+
+      var minVal = Math.min.apply(null, data) * 0.99;
+      var maxVal = Math.max.apply(null, data) * 1.01;
+      var range = maxVal - minVal || 1;
+
+      var points = data.map(function (val, idx) {
+        var x = padLeft + (idx / (data.length - 1)) * w;
+        var y = padTop + h - ((val - minVal) / range) * h;
+        return { x: x, y: y, val: val };
+      });
+
+      var linePath = points.map(function (pt, idx) {
+        return (idx === 0 ? 'M ' : 'L ') + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1);
+      }).join(' ');
+
+      var areaPath = linePath +
+        ' L ' + points[points.length - 1].x.toFixed(1) + ' ' + (padTop + h) +
+        ' L ' + points[0].x.toFixed(1) + ' ' + (padTop + h) + ' Z';
+
+      var prevY = points[0].y;
+      var prevLineHtml = '<line x1="' + padLeft + '" y1="' + prevY.toFixed(1) + '" x2="' + (720 - padRight) + '" y2="' + prevY.toFixed(1) + '" stroke="#8FA3A8" stroke-dasharray="3 4" stroke-width="1.5" />';
+
+      var gridHtml = '';
+      for (var g = 0; g <= 3; g++) {
+        var gy = padTop + (g / 3) * h;
+        var gVal = Math.round(maxVal - (g / 3) * range);
+        gridHtml += '<line x1="' + padLeft + '" y1="' + gy.toFixed(1) + '" x2="' + (720 - padRight) + '" y2="' + gy.toFixed(1) + '" stroke="#D0DDD7" stroke-dasharray="4 4" stroke-width="1" />';
+        gridHtml += '<text x="' + (padLeft - 10) + '" y="' + (gy + 4).toFixed(1) + '" text-anchor="end" fill="#4B5E63" font-family="Red Hat Mono, monospace" font-size="11">' + gVal + '</text>';
+      }
+
+      var xLabelsHtml = labels.map(function (lbl, idx) {
+        var lx = padLeft + (idx / (labels.length - 1)) * w;
+        return '<text x="' + lx.toFixed(1) + '" y="268" text-anchor="middle" fill="#4B5E63" font-family="Red Hat Mono, monospace" font-size="11">' + lbl + '</text>';
+      }).join('');
+
+      var lastPt = points[points.length - 1];
+      var dotHtml = '<circle cx="' + lastPt.x.toFixed(1) + '" cy="' + lastPt.y.toFixed(1) + '" r="5" fill="' + strokeColor + '" stroke="#FFFFFF" stroke-width="2" />';
+
+      svg.innerHTML =
+        '<defs>' +
+          '<linearGradient id="stockAreaGrad" x1="0" y1="0" x2="0" y2="1">' +
+            '<stop offset="0%" stop-color="' + strokeColor + '" stop-opacity="0.18" />' +
+            '<stop offset="100%" stop-color="' + strokeColor + '" stop-opacity="0.01" />' +
+          '</linearGradient>' +
+        '</defs>' +
+        gridHtml +
+        prevLineHtml +
+        '<path d="' + areaPath + '" fill="url(#stockAreaGrad)" />' +
+        '<path d="' + linePath + '" fill="none" stroke="' + strokeColor + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />' +
+        dotHtml +
+        xLabelsHtml;
+    }
+
+    initStocks();
+  </script>
+
+
+</body></html>

@@ -1,0 +1,299 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Core helper primitives
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isOwner(ownerUid) {
+      return isVerifiedUser() && ownerUid == request.auth.uid;
+    }
+
+    function isAdmin() {
+      return isVerifiedUser() && (
+        request.auth.token.email == 'heybulldog069@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidBoundedStringList(arr, maxLen) {
+      return arr is list && arr.size() <= maxLen && (arr.size() == 0 || (arr[0] is string && arr[0].size() <= 64));
+    }
+
+    // Validation Blueprints
+    function isValidCustomer(data) {
+      return data.keys().hasAll([
+          'id', 'uid', 'name', 'email', 'city', 'zone', 'purpose',
+          'preferredBedrooms', 'budgetRange', 'budgetNum', 'createdAt', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'id', 'uid', 'name', 'email', 'phone', 'city', 'zone', 'purpose',
+          'preferredBedrooms', 'budgetRange', 'budgetNum', 'occupation', 'requirement',
+          'savedFlatIds', 'followedStocks', 'assignedAgent', 'createdDate', 'createdAt', 'updatedAt'
+        ]) &&
+        isValidId(data.id) &&
+        isValidId(data.uid) &&
+        data.name is string && data.name.size() >= 2 && data.name.size() <= 120 &&
+        data.email is string && data.email.size() >= 3 && data.email.size() <= 180 &&
+        (!('phone' in data) || (data.phone is string && data.phone.size() <= 32)) &&
+        data.city in ['Bangalore', 'Hyderabad', 'Delhi'] &&
+        data.zone in ['North', 'South', 'East', 'West', 'Advice'] &&
+        data.purpose in ['Own', 'Rental'] &&
+        data.preferredBedrooms in ['1 BHK', '2 BHK', '3 BHK', '4+ BHK'] &&
+        data.budgetRange in ['< 50 Lakhs', '50L – 1 Cr', '1 Cr – 2 Cr', '> 2 Cr'] &&
+        data.budgetNum is number && data.budgetNum >= 0 && data.budgetNum <= 10000 &&
+        (!('occupation' in data) || (data.occupation is string && data.occupation.size() <= 180)) &&
+        (!('requirement' in data) || (data.requirement is string && data.requirement.size() <= 300)) &&
+        (!('savedFlatIds' in data) || isValidBoundedStringList(data.savedFlatIds, 50)) &&
+        (!('followedStocks' in data) || isValidBoundedStringList(data.followedStocks, 20)) &&
+        (!('assignedAgent' in data) || (data.assignedAgent is string && data.assignedAgent.size() <= 120)) &&
+        (!('createdDate' in data) || (data.createdDate is string && data.createdDate.size() <= 64)) &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+
+    function isValidParameterChange(data) {
+      return data.keys().hasAll([
+          'id', 'uid', 'customerId', 'customerName', 'metricCategory',
+          'parameterKey', 'previousValue', 'newValue', 'impactedMatchesCount', 'createdAt'
+        ]) &&
+        data.keys().hasOnly([
+          'id', 'uid', 'customerId', 'customerName', 'customerEmail', 'metricCategory',
+          'parameterKey', 'previousValue', 'newValue', 'city',
+          'impactedMatchesCount', 'avgMatchedPriceLakhs', 'createdAt'
+        ]) &&
+        isValidId(data.id) &&
+        isValidId(data.uid) &&
+        data.customerId is string && data.customerId.size() >= 1 && data.customerId.size() <= 128 &&
+        data.customerName is string && data.customerName.size() >= 1 && data.customerName.size() <= 120 &&
+        (!('customerEmail' in data) || (data.customerEmail is string && data.customerEmail.size() <= 180)) &&
+        data.metricCategory in [
+          'location_parameter',
+          'preference_parameter',
+          'shortlist_metric',
+          'stock_metric',
+          'account_lifecycle',
+          'pipeline_metric',
+          'visit_metric'
+        ] &&
+        data.parameterKey is string && data.parameterKey.size() >= 1 && data.parameterKey.size() <= 64 &&
+        data.previousValue is string && data.previousValue.size() <= 240 &&
+        data.newValue is string && data.newValue.size() <= 240 &&
+        (!('city' in data) || (data.city is string && data.city.size() <= 64)) &&
+        data.impactedMatchesCount is number && data.impactedMatchesCount >= 0 && data.impactedMatchesCount <= 1000 &&
+        (!('avgMatchedPriceLakhs' in data) || (data.avgMatchedPriceLakhs is number && data.avgMatchedPriceLakhs >= 0 && data.avgMatchedPriceLakhs <= 10000)) &&
+        data.createdAt is timestamp;
+    }
+
+    function isValidBuyerLead(data) {
+      return data.keys().hasAll([
+          'id', 'uid', 'name', 'email', 'phone', 'requirement', 'status',
+          'probability', 'budgetNum', 'company', 'project', 'createdAt', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'id', 'uid', 'name', 'email', 'phone', 'requirement', 'status', 'probability',
+          'occupation', 'city', 'contactTime', 'family', 'purpose', 'config', 'budget',
+          'budgetNum', 'loan', 'possession', 'notes', 'company', 'project', 'place',
+          'assignedAgent', 'lastActivityDate', 'createdAt', 'updatedAt'
+        ]) &&
+        isValidId(data.id) &&
+        isValidId(data.uid) &&
+        data.name is string && data.name.size() >= 2 && data.name.size() <= 120 &&
+        data.email is string && data.email.size() >= 3 && data.email.size() <= 180 &&
+        data.phone is string && data.phone.size() <= 32 &&
+        data.requirement is string && data.requirement.size() <= 300 &&
+        data.status in [
+          'Initial Inquiry',
+          'Audit Report Viewed',
+          'Callback Requested',
+          'Shortlisted',
+          'Site Visit Scheduled',
+          'Site Visit Completed',
+          'Loan Pre-Approved',
+          'Negotiation',
+          'Advance Placed',
+          'Closed / Dropped'
+        ] &&
+        data.probability is number && data.probability >= 0 && data.probability <= 100 &&
+        data.budgetNum is number && data.budgetNum >= 0 && data.budgetNum <= 10000 &&
+        data.company is string && data.company.size() <= 160 &&
+        data.project is string && data.project.size() <= 160 &&
+        (!('occupation' in data) || (data.occupation is string && data.occupation.size() <= 180)) &&
+        (!('city' in data) || (data.city is string && data.city.size() <= 120)) &&
+        (!('contactTime' in data) || (data.contactTime is string && data.contactTime.size() <= 120)) &&
+        (!('family' in data) || (data.family is string && data.family.size() <= 120)) &&
+        (!('purpose' in data) || (data.purpose is string && data.purpose.size() <= 80)) &&
+        (!('config' in data) || (data.config is string && data.config.size() <= 120)) &&
+        (!('budget' in data) || (data.budget is string && data.budget.size() <= 80)) &&
+        (!('loan' in data) || (data.loan is string && data.loan.size() <= 120)) &&
+        (!('possession' in data) || (data.possession is string && data.possession.size() <= 80)) &&
+        (!('notes' in data) || (data.notes is string && data.notes.size() <= 4000)) &&
+        (!('place' in data) || (data.place is string && data.place.size() <= 160)) &&
+        (!('assignedAgent' in data) || (data.assignedAgent is string && data.assignedAgent.size() <= 120)) &&
+        (!('lastActivityDate' in data) || (data.lastActivityDate is string && data.lastActivityDate.size() <= 64)) &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+
+    function isValidSiteVisit(data) {
+      return data.keys().hasAll([
+          'id', 'uid', 'customerId', 'customerName', 'flatId', 'flatName',
+          'visitDate', 'visitSlot', 'status', 'createdAt'
+        ]) &&
+        data.keys().hasOnly([
+          'id', 'uid', 'customerId', 'customerName', 'customerEmail',
+          'flatId', 'flatName', 'city', 'visitDate', 'visitSlot', 'status', 'createdAt'
+        ]) &&
+        isValidId(data.id) &&
+        isValidId(data.uid) &&
+        data.customerId is string && data.customerId.size() >= 1 && data.customerId.size() <= 128 &&
+        data.customerName is string && data.customerName.size() >= 1 && data.customerName.size() <= 120 &&
+        (!('customerEmail' in data) || (data.customerEmail is string && data.customerEmail.size() <= 180)) &&
+        data.flatId is string && data.flatId.size() >= 1 && data.flatId.size() <= 64 &&
+        data.flatName is string && data.flatName.size() >= 1 && data.flatName.size() <= 160 &&
+        (!('city' in data) || (data.city is string && data.city.size() <= 64)) &&
+        data.visitDate is string && data.visitDate.size() >= 4 && data.visitDate.size() <= 32 &&
+        data.visitSlot is string && data.visitSlot.size() >= 2 && data.visitSlot.size() <= 32 &&
+        data.status in ['Scheduled', 'Completed', 'Cancelled'] &&
+        data.createdAt is timestamp;
+    }
+
+    // 1. Customer Accounts Collection (PII isolated to owner & admin)
+    match /customers/{customerId} {
+      allow get: if isValidId(customerId) && (isOwner(existing().uid) || isAdmin());
+      allow list: if isVerifiedUser() && (existing().uid == request.auth.uid || isAdmin());
+      allow create: if isValidId(customerId) &&
+        isVerifiedUser() &&
+        isValidCustomer(incoming()) &&
+        incoming().uid == request.auth.uid &&
+        incoming().id == customerId &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isValidId(customerId) &&
+        isVerifiedUser() &&
+        isValidCustomer(incoming()) &&
+        incoming().uid == existing().uid &&
+        incoming().id == existing().id &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time && (
+          isAdmin() ||
+          (
+            isOwner(existing().uid) &&
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'city', 'zone', 'purpose', 'preferredBedrooms', 'budgetRange',
+              'budgetNum', 'requirement', 'savedFlatIds', 'followedStocks',
+              'phone', 'occupation', 'updatedAt'
+            ])
+          )
+        );
+      allow delete: if isValidId(customerId) && isAdmin();
+    }
+
+    // 2. Parameter & Metric Changes Audit Collection (append-only)
+    match /parameterChanges/{changeId} {
+      allow get: if isValidId(changeId) && (isOwner(existing().uid) || isAdmin());
+      allow list: if isVerifiedUser() && (existing().uid == request.auth.uid || isAdmin());
+      allow create: if isValidId(changeId) &&
+        isVerifiedUser() &&
+        isValidParameterChange(incoming()) &&
+        incoming().uid == request.auth.uid &&
+        incoming().id == changeId &&
+        incoming().createdAt == request.time;
+      allow update: if false;
+      allow delete: if isValidId(changeId) && isAdmin();
+    }
+
+    // 3. Buyer Leads Pipeline Collection
+    match /buyerLeads/{leadId} {
+      allow get: if isValidId(leadId) && (isOwner(existing().uid) || isAdmin());
+      allow list: if isVerifiedUser() && (existing().uid == request.auth.uid || isAdmin());
+      allow create: if isValidId(leadId) &&
+        isVerifiedUser() &&
+        isValidBuyerLead(incoming()) &&
+        incoming().uid == request.auth.uid &&
+        incoming().id == leadId &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isValidId(leadId) &&
+        isVerifiedUser() &&
+        isValidBuyerLead(incoming()) &&
+        incoming().uid == existing().uid &&
+        incoming().id == existing().id &&
+        incoming().createdAt == existing().createdAt &&
+        incoming().updatedAt == request.time && (
+          isAdmin() ||
+          (
+            isOwner(existing().uid) &&
+            existing().status != 'Closed / Dropped' &&
+            incoming().diff(existing()).affectedKeys().hasOnly([
+              'requirement', 'city', 'purpose', 'config', 'budget',
+              'budgetNum', 'lastActivityDate', 'updatedAt'
+            ])
+          )
+        );
+      allow delete: if isValidId(leadId) && isAdmin();
+    }
+
+    // 4. Site Visits Collection
+    match /siteVisits/{visitId} {
+      allow get: if isValidId(visitId) && (isOwner(existing().uid) || isAdmin());
+      allow list: if isVerifiedUser() && (existing().uid == request.auth.uid || isAdmin());
+      allow create: if isValidId(visitId) &&
+        isVerifiedUser() &&
+        isValidSiteVisit(incoming()) &&
+        incoming().uid == request.auth.uid &&
+        incoming().id == visitId &&
+        incoming().status == 'Scheduled' &&
+        incoming().createdAt == request.time;
+      allow update: if isValidId(visitId) &&
+        isVerifiedUser() &&
+        isValidSiteVisit(incoming()) &&
+        incoming().uid == existing().uid &&
+        incoming().id == existing().id &&
+        incoming().createdAt == existing().createdAt && (
+          isAdmin() ||
+          (
+            isOwner(existing().uid) &&
+            existing().status == 'Scheduled' &&
+            incoming().diff(existing()).affectedKeys().hasOnly(['status'])
+          )
+        );
+      allow delete: if isValidId(visitId) && isAdmin();
+    }
+
+    // 5. Admins / Advisors Collection (read own role only; never self-escalate)
+    match /admins/{adminUid} {
+      allow get: if isValidId(adminUid) && isVerifiedUser() && request.auth.uid == adminUid;
+      allow list: if false;
+      allow write: if false;
+    }
+
+    // 6. Connection health check doc (non-PII)
+    match /test/connection {
+      allow get: if true;
+      allow write: if false;
+    }
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "entities": {
+    "CustomerAccount": {
+      "title": "CustomerAccount",
+      "description": "Registered customer account profile and live search/preference metrics stored in the unified GlassWindow database.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 2, "maxLength": 128 },
+        "uid": { "type": "string", "minLength": 2, "maxLength": 128 },
+        "name": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "email": { "type": "string", "format": "email", "maxLength": 180 },
+        "phone": { "type": "string", "maxLength": 32 },
+        "city": { "type": "string", "enum": ["Bangalore", "Hyderabad", "Delhi"] },
+        "zone": { "type": "string", "enum": ["North", "South", "East", "West", "Advice"] },
+        "purpose": { "type": "string", "enum": ["Own", "Rental"] },
+        "preferredBedrooms": { "type": "string", "enum": ["1 BHK", "2 BHK", "3 BHK", "4+ BHK"] },
+        "budgetRange": { "type": "string", "enum": ["< 50 Lakhs", "50L – 1 Cr", "1 Cr – 2 Cr", "> 2 Cr"] },
+        "budgetNum": { "type": "number" },
+        "occupation": { "type": "string", "maxLength": 180 },
+        "requirement": { "type": "string", "maxLength": 300 },
+        "savedFlatIds": { "type": "array" },
+        "followedStocks": { "type": "array" },
+        "assignedAgent": { "type": "string", "maxLength": 120 },
+        "createdDate": { "type": "string", "maxLength": 64 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "uid",
+        "name",
+        "email",
+        "city",
+        "zone",
+        "purpose",
+        "preferredBedrooms",
+        "budgetRange",
+        "budgetNum",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ParameterMetricChange": {
+      "title": "ParameterMetricChange",
+      "description": "Immutable audit log of every customer parameter and metric change (city, zone, bedrooms, budget, purpose, shortlist, stock follow, lead stage/probability).",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 2, "maxLength": 128 },
+        "uid": { "type": "string", "minLength": 2, "maxLength": 128 },
+        "customerId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "customerName": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "customerEmail": { "type": "string", "maxLength": 180 },
+        "metricCategory": {
+          "type": "string",
+          "enum": [
+            "location_parameter",
+            "preference_parameter",
+            "shortlist_metric",
+            "stock_metric",
+            "account_lifecycle",
+            "pipeline_metric",
+            "visit_metric"
+          ]
+        },
+        "parameterKey": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "previousValue": { "type": "string", "maxLength": 240 },
+        "newValue": { "type": "string", "maxLength": 240 },
+        "city": { "type": "string", "maxLength": 64 },
+        "impactedMatchesCount": { "type": "number" },
+        "avgMatchedPriceLakhs": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "uid",
+        "customerId",
+        "customerName",
+        "metricCategory",
+        "parameterKey",
+        "previousValue",
+        "newValue",
+        "impactedMatchesCount",
+        "createdAt"
+      ]
+    },
+    "BuyerLeadRecord": {
+      "title": "BuyerLeadRecord",
+      "description": "CRM buyer lead record synchronized with customer signups and advisor pipeline updates.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 2, "maxLength": 128 },
+        "uid": { "type": "string", "minLength": 2, "maxLength": 128 },
+        "name": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "email": { "type": "string", "format": "email", "maxLength": 180 },
+        "phone": { "type": "string", "maxLength": 32 },
+        "requirement": { "type": "string", "maxLength": 300 },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Initial Inquiry",
+            "Audit Report Viewed",
+            "Callback Requested",
+            "Shortlisted",
+            "Site Visit Scheduled",
+            "Site Visit Completed",
+            "Loan Pre-Approved",
+            "Negotiation",
+            "Advance Placed",
+            "Closed / Dropped"
+          ]
+        },
+        "probability": { "type": "number" },
+        "occupation": { "type": "string", "maxLength": 180 },
+        "city": { "type": "string", "maxLength": 120 },
+        "contactTime": { "type": "string", "maxLength": 120 },
+        "family": { "type": "string", "maxLength": 120 },
+        "purpose": { "type": "string", "maxLength": 80 },
+        "config": { "type": "string", "maxLength": 120 },
+        "budget": { "type": "string", "maxLength": 80 },
+        "budgetNum": { "type": "number" },
+        "loan": { "type": "string", "maxLength": 120 },
+        "possession": { "type": "string", "maxLength": 80 },
+        "notes": { "type": "string", "maxLength": 4000 },
+        "company": { "type": "string", "maxLength": 160 },
+        "project": { "type": "string", "maxLength": 160 },
+        "place": { "type": "string", "maxLength": 160 },
+        "assignedAgent": { "type": "string", "maxLength": 120 },
+        "lastActivityDate": { "type": "string", "maxLength": 64 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "uid",
+        "name",
+        "email",
+        "phone",
+        "requirement",
+        "status",
+        "probability",
+        "budgetNum",
+        "company",
+        "project",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SiteVisitBooking": {
+      "title": "SiteVisitBooking",
+      "description": "Scheduled property walkthrough booked by a customer.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 2, "maxLength": 128 },
+        "uid": { "type": "string", "minLength": 2, "maxLength": 128 },
+        "customerId": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "customerName": { "type": "string", "maxLength": 120 },
+        "customerEmail": { "type": "string", "maxLength": 180 },
+        "flatId": { "type": "string", "maxLength": 64 },
+        "flatName": { "type": "string", "maxLength": 160 },
+        "city": { "type": "string", "maxLength": 64 },
+        "visitDate": { "type": "string", "maxLength": 32 },
+        "visitSlot": { "type": "string", "maxLength": 32 },
+        "status": { "type": "string", "enum": ["Scheduled", "Completed", "Cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "id",
+        "uid",
+        "customerId",
+        "customerName",
+        "flatId",
+        "flatName",
+        "visitDate",
+        "visitSlot",
+        "status",
+        "createdAt"
+      ]
+    },
+    "AdminRoleRecord": {
+      "title": "AdminRoleRecord",
+      "description": "Verified platform administrator marker document.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 2, "maxLength": 128 },
+        "role": { "type": "string", "enum": ["admin", "advisor"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "role", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/customers/{customerId}": {
+      "schema": { "$ref": "#/entities/CustomerAccount" },
+      "description": "Registered customer accounts and their current preference/metric parameters."
+    },
+    "/parameterChanges/{changeId}": {
+      "schema": { "$ref": "#/entities/ParameterMetricChange" },
+      "description": "Append-only telemetry log of every parameter and metric mutation across customer sessions and advisor updates."
+    },
+    "/buyerLeads/{leadId}": {
+      "schema": { "$ref": "#/entities/BuyerLeadRecord" },
+      "description": "Active buyer leads synced with customer accounts and advisor CRM stage updates."
+    },
+    "/siteVisits/{visitId}": {
+      "schema": { "$ref": "#/entities/SiteVisitBooking" },
+      "description": "Scheduled property walkthrough appointments."
+    },
+    "/admins/{adminUid}": {
+      "schema": { "$ref": "#/entities/AdminRoleRecord" },
+      "description": "Trusted advisor/admin role registry."
+    }
+  }
+}

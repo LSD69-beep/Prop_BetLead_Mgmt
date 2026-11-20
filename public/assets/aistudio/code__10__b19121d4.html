@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlassWindow — Location User Leads</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#0F4C5C',
+        'on-primary': '#FFFFFF',
+        'primary-container': '#D2E8ED',
+        'on-primary-container': '#09323D',
+        'secondary': '#B44D27',
+        'on-secondary': '#FFFFFF',
+        'secondary-container': '#FCE8E0',
+        'on-secondary-container': '#5C220D',
+        'accent': '#D97736',
+        'on-accent': '#2A2A2A',
+        'surface': '#F2F5F3',
+        'surface-container-low': '#E9EFEA',
+        'surface-container': '#FFFFFF',
+        'surface-container-high': '#DDE6E0',
+        'on-surface': '#152226',
+        'on-surface-variant': '#4B5E63',
+        'outline': '#8FA3A8',
+        'outline-variant': '#D0DDD7',
+        'success': '#1F7A4C',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'error': '#B91C1C',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '64px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Playfair Display"', 'sans-serif'],
+        'headline': ['"Montserrat"', 'sans-serif'],
+        'title': ['"Montserrat"', 'sans-serif'],
+        'body': ['"Montserrat"', 'sans-serif'],
+        'label': ['"Montserrat"', 'sans-serif'],
+        'mono': ['"Red Hat Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-0.75px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md': ['38px', { lineHeight: '46px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['34px', { lineHeight: '42px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.3px', fontWeight: '600' }],
+        'mono-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Red+Hat+Mono:wght@500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col bg-surface text-on-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-surface-container border-b border-outline-variant">
+      <div class="max-w-7xl mx-auto px-gutter-lg h-20 flex items-center justify-between gap-gutter-md">
+        <a href="../homepage/GlassWindowHomepage.html" class="flex items-center gap-gutter-sm shrink-0">
+          <span class="w-9 h-9 rounded-DEFAULT bg-secondary text-on-secondary flex items-center justify-center">
+            <span class="material-symbols-outlined text-title-lg" aria-hidden="true">window</span>
+          </span>
+          <span class="font-display text-headline-sm text-primary tracking-tight" data-design-text-token="headline-sm">GlassWindow</span>
+        </a>
+
+        <a id="back-to-company" href="../agent-portal/CompanyProjects.html" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-md bg-surface-container border border-outline-variant font-label text-label-md text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors duration-state-change">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_back</span>
+          <span data-design-text-token="label-md">Back to Locations</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 py-gutter-xl px-gutter-lg bg-surface">
+      <div class="max-w-7xl mx-auto w-full flex flex-col gap-gutter-xl">
+
+        <!-- Location & Project Summary Header -->
+        <section aria-label="Selected building location" class="rounded-xl bg-surface-container border border-outline-variant p-gutter-xl shadow-sm flex flex-col md:flex-row md:items-end justify-between gap-gutter-lg">
+          <div class="flex flex-col gap-gutter-xs">
+            <div class="flex items-center gap-gutter-sm">
+              <span id="lead-company" class="px-gutter-sm py-gutter-xs rounded-DEFAULT bg-secondary-container text-on-secondary-container font-mono text-mono-sm" data-design-text-token="mono-sm">Sobha Limited</span>
+              <span id="lead-place" class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Panathur Road, East Bengaluru</span>
+            </div>
+            <h1 id="lead-project" class="font-display text-display-md-mobile lg:text-display-md text-on-surface text-balance" data-design-text-token="display-md">
+              Sobha Neopolis
+            </h1>
+            <p class="font-body text-body-md text-on-surface-variant" data-design-text-token="body-md">
+              Interested buyers for this location with their conversion probability.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-gutter-lg shrink-0">
+            <div class="flex flex-col items-end">
+              <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Total Users</span>
+              <span id="total-users" class="font-headline text-headline-sm text-on-surface tabular-nums" data-design-text-token="headline-sm">6</span>
+            </div>
+            <div class="flex flex-col items-end">
+              <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Avg. Conversion</span>
+              <span id="avg-conversion" class="font-headline text-headline-sm text-primary tabular-nums" data-design-text-token="headline-sm">65%</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Users List with Conversion Probability Bar Below Each Person -->
+        <section aria-label="Interested users list" class="flex flex-col gap-gutter-md">
+          <div class="flex items-center justify-between gap-gutter-sm">
+            <h2 class="font-headline text-headline-sm text-on-surface" data-design-text-token="headline-sm">Interested Users</h2>
+            <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Sorted by probability</span>
+          </div>
+
+          <div id="users-list" class="flex flex-col gap-gutter-md">
+            <!-- Populated by script -->
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container border-t border-outline-variant py-gutter-lg">
+      <div class="max-w-7xl mx-auto px-gutter-lg flex flex-col sm:flex-row items-center justify-between gap-gutter-sm">
+        <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">© 2026 GlassWindow Advisory Pvt. Ltd.</span>
+        <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Location User Leads</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    var LOCATION_USERS = [
+      {
+        id: 'rohan',
+        name: 'Rohan Deshmukh',
+        photo: '../../images/lead_rohan.jpg',
+        email: 'rohan.deshmukh@gmail.com',
+        phone: '+91 98452 19034',
+        requirement: '3 BHK • ₹1.5 Cr – 1.8 Cr',
+        status: 'Site Visit Completed',
+        probability: 88
+      },
+      {
+        id: 'ananya',
+        name: 'Ananya Krishnan',
+        photo: '../../images/lead_ananya.jpg',
+        email: 'ananya.krishnan@outlook.com',
+        phone: '+91 99004 71285',
+        requirement: '3 BHK • ₹1.6 Cr – 2.0 Cr',
+        status: 'Loan Pre-Approved',
+        probability: 79
+      },
+      {
+        id: 'vikram',
+        name: 'Vikramaditya Nair',
+        photo: '../../images/lead_vikram.jpg',
+        email: 'vikram.nair@yahoo.in',
+        phone: '+91 98801 44320',
+        requirement: '2 BHK • ₹1.1 Cr – 1.4 Cr',
+        status: 'Audit Report Viewed',
+        probability: 68
+      },
+      {
+        id: 'meera',
+        name: 'Meera Iyer',
+        photo: '../../images/lead_meera.jpg',
+        email: 'meera.iyer@gmail.com',
+        phone: '+91 97410 66512',
+        requirement: '3 BHK • ₹1.4 Cr – 1.7 Cr',
+        status: 'Shortlisted',
+        probability: 54
+      },
+      {
+        id: 'karthik',
+        name: 'Karthik Reddy',
+        photo: '../../images/lead_karthik.jpg',
+        email: 'karthik.reddy@proton.me',
+        phone: '+91 98490 33817',
+        requirement: '4 BHK • > ₹2 Cr',
+        status: 'Callback Requested',
+        probability: 42
+      },
+      {
+        id: 'sneha',
+        name: 'Sneha Kulkarni',
+        photo: '../../images/lead_sneha.jpg',
+        email: 'sneha.kulkarni@gmail.com',
+        phone: '+91 99805 21904',
+        requirement: '2 BHK • ₹90L – 1.2 Cr',
+        status: 'Initial Inquiry',
+        probability: 29
+      }
+    ];
+
+    var currentCompany = 'Sobha Limited';
+    var currentProject = 'Sobha Neopolis';
+    var currentPlace = 'Panathur Road, East Bengaluru';
+
+    function initLeads() {
+      var params = new URLSearchParams(window.location.search);
+      currentCompany = params.get('company') || 'Sobha Limited';
+      currentProject = params.get('project') || 'Sobha Neopolis';
+      currentPlace = params.get('place') || 'Panathur Road, East Bengaluru';
+
+      document.getElementById('lead-company').textContent = currentCompany;
+      document.getElementById('lead-project').textContent = currentProject;
+      document.getElementById('lead-place').textContent = currentPlace;
+      document.getElementById('back-to-company').href = '../agent-portal/CompanyProjects.html?company=' + encodeURIComponent(currentCompany);
+
+      var sum = LOCATION_USERS.reduce(function (acc, u) { return acc + u.probability; }, 0);
+      document.getElementById('total-users').textContent = String(LOCATION_USERS.length);
+      document.getElementById('avg-conversion').textContent = Math.round(sum / LOCATION_USERS.length) + '%';
+
+      renderUsers();
+    }
+
+    function getBarColorClass(prob) {
+      if (prob >= 75) return 'bg-success';
+      if (prob >= 50) return 'bg-primary';
+      return 'bg-secondary';
+    }
+
+    function getProbTextClass(prob) {
+      if (prob >= 75) return 'text-success';
+      if (prob >= 50) return 'text-primary';
+      return 'text-secondary';
+    }
+
+    function renderUsers() {
+      var listEl = document.getElementById('users-list');
+      listEl.innerHTML = LOCATION_USERS.map(function (user) {
+        var barColor = getBarColorClass(user.probability);
+        var textColor = getProbTextClass(user.probability);
+        var profileHref = '../agent-portal/LeadProfile.html?id=' + encodeURIComponent(user.id) +
+          '&company=' + encodeURIComponent(currentCompany) +
+          '&project=' + encodeURIComponent(currentProject) +
+          '&place=' + encodeURIComponent(currentPlace);
+
+        return (
+          '<a href="' + profileHref + '" class="block rounded-xl bg-surface-container border border-outline-variant p-gutter-xl shadow-sm hover:border-secondary transition-colors duration-state-change flex flex-col gap-gutter-lg">' +
+            '<div class="flex flex-col sm:flex-row sm:items-center gap-gutter-xl">' +
+              '<img src="' + user.photo + '" alt="' + user.name + '" class="w-24 h-24 rounded-xl object-cover border border-outline-variant shrink-0" />' +
+              '<div class="flex-1 flex flex-col gap-gutter-xs">' +
+                '<div class="flex flex-wrap items-center gap-gutter-sm">' +
+                  '<h3 class="font-headline text-headline-sm text-on-surface" data-design-text-token="headline-sm">' + user.name + '</h3>' +
+                  '<span class="px-gutter-sm py-gutter-xs rounded-DEFAULT bg-surface-container-low border border-outline-variant font-mono text-mono-md text-on-surface" data-design-text-token="mono-md">' + user.status + '</span>' +
+                '</div>' +
+                '<p class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">' + user.email + ' • ' + user.phone + '</p>' +
+                '<p class="font-mono text-mono-md text-primary tabular-nums" data-design-text-token="mono-md">' + user.requirement + '</p>' +
+              '</div>' +
+            '</div>' +
+
+            '<!-- Conversion Probability Bar Below Each Person -->' +
+            '<div class="pt-gutter-md border-t border-outline-variant flex flex-col gap-gutter-sm">' +
+              '<div class="flex items-center justify-between gap-gutter-sm">' +
+                '<span class="font-title text-title-md text-on-surface-variant" data-design-text-token="title-md">Conversion Probability</span>' +
+                '<span class="font-headline text-headline-sm ' + textColor + ' tabular-nums" data-design-text-token="headline-sm">' + user.probability + '%</span>' +
+              '</div>' +
+              '<div class="w-full h-4 rounded-full bg-surface-container-high overflow-hidden" role="progressbar" aria-valuenow="' + user.probability + '" aria-valuemin="0" aria-valuemax="100" aria-label="Conversion probability for ' + user.name + '">' +
+                '<div class="h-full rounded-full ' + barColor + '" style="width: ' + user.probability + '%;"></div>' +
+              '</div>' +
+            '</div>' +
+          '</a>'
+        );
+      }).join('');
+    }
+
+    initLeads();
+  </script>
+
+
+</body></html>

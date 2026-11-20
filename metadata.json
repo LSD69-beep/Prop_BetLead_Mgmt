@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix GlassWindow — Architectural Real Estate \u0026 Lead Advisory Platform",
+  "description": "Data-backed homebuying advisory platform with dedicated Customer and Agent portals, city zone matching, developer stock analytics, and lead conversion management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

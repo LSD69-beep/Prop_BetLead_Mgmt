@@ -1,0 +1,467 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlassWindow — Flat Details</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#0F4C5C',
+        'on-primary': '#FFFFFF',
+        'primary-container': '#D2E8ED',
+        'on-primary-container': '#09323D',
+        'secondary': '#B44D27',
+        'on-secondary': '#FFFFFF',
+        'secondary-container': '#FCE8E0',
+        'on-secondary-container': '#5C220D',
+        'accent': '#D97736',
+        'on-accent': '#2A2A2A',
+        'surface': '#F2F5F3',
+        'surface-container-low': '#E9EFEA',
+        'surface-container': '#FFFFFF',
+        'surface-container-high': '#DDE6E0',
+        'on-surface': '#152226',
+        'on-surface-variant': '#4B5E63',
+        'outline': '#8FA3A8',
+        'outline-variant': '#D0DDD7',
+        'success': '#1F7A4C',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'error': '#B91C1C',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '64px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Playfair Display"', 'sans-serif'],
+        'headline': ['"Montserrat"', 'sans-serif'],
+        'title': ['"Montserrat"', 'sans-serif'],
+        'body': ['"Montserrat"', 'sans-serif'],
+        'label': ['"Montserrat"', 'sans-serif'],
+        'mono': ['"Red Hat Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-0.75px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md': ['38px', { lineHeight: '46px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['34px', { lineHeight: '42px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.3px', fontWeight: '600' }],
+        'mono-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Red+Hat+Mono:wght@500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col bg-surface text-on-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-surface-container border-b border-outline-variant">
+      <div class="max-w-7xl mx-auto px-gutter-lg h-20 flex items-center justify-between gap-gutter-md">
+        <a href="../homepage/GlassWindowHomepage.html" class="flex items-center gap-gutter-sm shrink-0">
+          <span class="w-9 h-9 rounded-DEFAULT bg-primary text-on-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-title-lg" aria-hidden="true">window</span>
+          </span>
+          <span class="font-display text-headline-sm text-primary tracking-tight" data-design-text-token="headline-sm">GlassWindow</span>
+        </a>
+
+        <a href="../listings/MatchingFlats.html" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-md bg-surface-container border border-outline-variant font-label text-label-md text-on-surface-variant hover:text-primary hover:border-primary transition-colors duration-state-change">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_back</span>
+          <span data-design-text-token="label-md">Back to Flats</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 py-gutter-xl px-gutter-lg bg-surface">
+      <div class="max-w-7xl mx-auto w-full flex flex-col gap-gutter-xl">
+
+        <!-- Hero Card: Enlarged Image & Title -->
+        <section class="rounded-xl bg-surface-container border border-outline-variant overflow-hidden shadow-sm grid grid-cols-1 lg:grid-cols-12">
+          <div class="lg:col-span-6 min-h-[320px] lg:min-h-[400px] bg-surface-container-low">
+            <img id="detail-image" src="https://lh3.googleusercontent.com/aida/ALJJyrCotgPsq5zWboW9ofDqaAqctVdepVTWSFKNKquKian4iZNxw2RH5_voKo9aWPvqqIoZGENsjbzdQwo3bpX1n6FlX6sPFYAPCwCVXD7J8ubf3ZeFXbxQzUbll4_-A-SAAipGts8w-o_3IEiNk9Rg8bsKsRcqaKGpxR0_6r2_0zI16F4O-bQmRFPoS3tq_iSUNpl4sR82EenJ70cauLIVfL9srPyl08Z3KcbNyA0H66ahh7l3qMMOa1lhN4xyBUY" alt="Sobha Neopolis" class="w-full h-full object-cover">
+          </div>
+
+          <div class="lg:col-span-6 p-gutter-xl flex flex-col justify-between gap-gutter-xl">
+            <div class="flex flex-col gap-gutter-sm">
+              <div class="flex items-center gap-gutter-sm">
+                <span class="px-gutter-sm py-gutter-xs rounded-DEFAULT bg-success-container text-on-success-container font-mono text-mono-md" data-design-text-token="mono-md">RERA Verified</span>
+                <span id="detail-score" class="px-gutter-sm py-gutter-xs rounded-DEFAULT bg-primary-container text-on-primary-container font-mono text-mono-md tabular-nums" data-design-text-token="mono-md">8.9 / 10</span>
+              </div>
+              <h1 id="detail-name" class="font-display text-display-lg-mobile lg:text-display-lg text-on-surface text-balance" data-design-text-token="display-lg">
+                Sobha Neopolis
+              </h1>
+              <p id="detail-locality" class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">
+                Panathur Road, East Bangalore
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter-lg pt-gutter-lg border-t border-outline-variant">
+              <div class="flex flex-col gap-gutter-xs">
+                <span class="font-body text-body-md text-on-surface-variant" data-design-text-token="body-md">Total Selling Price</span>
+                <span id="detail-price-top" class="font-headline text-headline-md text-primary tabular-nums" data-design-text-token="headline-md">₹1,68,00,000</span>
+              </div>
+              <div class="flex flex-col gap-gutter-xs">
+                <span class="font-body text-body-md text-on-surface-variant" data-design-text-token="body-md">Advance Payment</span>
+                <span id="detail-advance-top" class="font-headline text-headline-md text-secondary tabular-nums" data-design-text-token="headline-md">₹15,00,000</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Enlarged Flat & Owner Specifications -->
+        <section aria-label="Flat specifications and owner contact" class="grid grid-cols-1 md:grid-cols-2 gap-gutter-xl">
+
+          <!-- Flat Specifications Card -->
+          <div class="rounded-xl bg-surface-container border border-outline-variant p-gutter-xl shadow-sm flex flex-col gap-gutter-lg">
+            <h2 class="font-headline text-headline-md text-on-surface pb-gutter-md border-b border-outline-variant" data-design-text-token="headline-md">
+              Flat Specifications
+            </h2>
+
+            <dl class="flex flex-col gap-gutter-lg">
+              <div class="flex items-center justify-between gap-gutter-md pb-gutter-sm border-b border-outline-variant">
+                <dt class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">Apartment Name</dt>
+                <dd id="spec-apartment" class="font-title text-title-lg text-on-surface text-right" data-design-text-token="title-lg">Sobha Neopolis</dd>
+              </div>
+              <div class="flex items-center justify-between gap-gutter-md pb-gutter-sm border-b border-outline-variant">
+                <dt class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">Developer Company</dt>
+                <dd class="text-right">
+                  <a id="spec-company-link" href="../stocks/DeveloperStocks.html?dev=SOBHA" class="font-title text-title-lg text-primary hover:underline" data-design-text-token="title-lg">Sobha Ltd.</a>
+                </dd>
+              </div>
+              <div class="flex items-center justify-between gap-gutter-md pb-gutter-sm border-b border-outline-variant">
+                <dt class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">Property Type</dt>
+                <dd id="spec-type" class="font-title text-title-lg text-on-surface text-right" data-design-text-token="title-lg">Flat</dd>
+              </div>
+              <div class="flex items-center justify-between gap-gutter-md pb-gutter-sm border-b border-outline-variant">
+                <dt class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">Flat Number</dt>
+                <dd id="spec-flat-no" class="font-headline text-headline-sm text-on-surface tabular-nums text-right" data-design-text-token="headline-sm">A-1204</dd>
+              </div>
+              <div class="flex items-center justify-between gap-gutter-md">
+                <dt class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">Floor Number</dt>
+                <dd id="spec-floor" class="font-headline text-headline-sm text-on-surface tabular-nums text-right" data-design-text-token="headline-sm">12th Floor</dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- Pricing & Owner Contact Card -->
+          <div class="rounded-xl bg-surface-container border border-outline-variant p-gutter-xl shadow-sm flex flex-col gap-gutter-lg">
+            <h2 class="font-headline text-headline-md text-on-surface pb-gutter-md border-b border-outline-variant" data-design-text-token="headline-md">
+              Pricing &amp; Owner Contact
+            </h2>
+
+            <dl class="flex flex-col gap-gutter-lg">
+              <div class="flex items-center justify-between gap-gutter-md pb-gutter-sm border-b border-outline-variant">
+                <dt class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">Total Selling Price</dt>
+                <dd id="spec-price" class="font-headline text-headline-sm text-on-surface tabular-nums text-right" data-design-text-token="headline-sm">₹1,68,00,000</dd>
+              </div>
+              <div class="flex items-center justify-between gap-gutter-md pb-gutter-sm border-b border-outline-variant">
+                <dt class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">Advance Payment</dt>
+                <dd id="spec-advance" class="font-headline text-headline-sm text-on-surface tabular-nums text-right" data-design-text-token="headline-sm">₹15,00,000</dd>
+              </div>
+              <div class="flex items-center justify-between gap-gutter-md pb-gutter-sm border-b border-outline-variant">
+                <dt class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">Owner Email ID</dt>
+                <dd id="spec-email" class="font-title text-title-md text-primary text-right" data-design-text-token="title-md">arjun.mehta@glasswindow.in</dd>
+              </div>
+              <div class="flex items-center justify-between gap-gutter-md">
+                <dt class="font-body text-body-lg text-on-surface-variant" data-design-text-token="body-lg">Owner Phone No</dt>
+                <dd id="spec-phone" class="font-headline text-headline-sm text-on-surface tabular-nums text-right" data-design-text-token="headline-sm">+91 98450 31284</dd>
+              </div>
+            </dl>
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container border-t border-outline-variant py-gutter-lg">
+      <div class="max-w-7xl mx-auto px-gutter-lg flex flex-col sm:flex-row items-center justify-between gap-gutter-sm">
+        <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">© 2026 GlassWindow Advisory Pvt. Ltd.</span>
+        <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Flat Details</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    var FLAT_DETAILS = {
+      'blr-1': {
+        name: 'Sobha Neopolis',
+        company: 'Sobha Ltd.',
+        devId: 'SOBHA',
+        locality: 'Panathur Road, East Bangalore',
+        type: 'Flat',
+        flatNo: 'A-1204',
+        floor: '12th Floor',
+        price: '₹1,68,00,000',
+        advance: '₹15,00,000',
+        email: 'arjun.mehta@glasswindow.in',
+        phone: '+91 98450 31284',
+        score: '8.9 / 10',
+        image: '../../images/property_bengaluru.jpg'
+      },
+      'blr-2': {
+        name: 'Prestige Park Grove',
+        company: 'Prestige Estates',
+        devId: 'PRESTIGE',
+        locality: 'Whitefield, East Bangalore',
+        type: 'Flat',
+        flatNo: 'B-0802',
+        floor: '8th Floor',
+        price: '₹1,85,00,000',
+        advance: '₹18,50,000',
+        email: 'kavita.nair@glasswindow.in',
+        phone: '+91 98451 62019',
+        score: '9.1 / 10',
+        image: '../../images/home_living_glass.jpg'
+      },
+      'blr-3': {
+        name: 'Brigade Utopia',
+        company: 'Brigade Enterprises',
+        devId: 'BRIGADE',
+        locality: 'Varthur Main Rd, East Bangalore',
+        type: 'Flat',
+        flatNo: 'C-0506',
+        floor: '5th Floor',
+        price: '₹1,42,00,000',
+        advance: '₹12,00,000',
+        email: 'rohan.desai@glasswindow.in',
+        phone: '+91 98802 44710',
+        score: '8.6 / 10',
+        image: '../../images/home_villa_courtyard.jpg'
+      },
+      'blr-4': {
+        name: 'Godrej Splendour',
+        company: 'Godrej Properties',
+        devId: 'GODREJPROP',
+        locality: 'Belathur, East Bangalore',
+        type: 'Flat',
+        flatNo: 'D-1003',
+        floor: '10th Floor',
+        price: '₹1,24,00,000',
+        advance: '₹10,00,000',
+        email: 'sneha.kulkarni@glasswindow.in',
+        phone: '+91 99001 78342',
+        score: '8.4 / 10',
+        image: '../../images/hero_modern_residence.jpg'
+      },
+      'hyd-1': {
+        name: 'My Home Vipina',
+        company: 'Prestige Estates',
+        devId: 'PRESTIGE',
+        locality: 'Tellapur, West Hyderabad',
+        type: 'Flat',
+        flatNo: 'T2-1401',
+        floor: '14th Floor',
+        price: '₹1,54,00,000',
+        advance: '₹14,00,000',
+        email: 'vikram.reddy@glasswindow.in',
+        phone: '+91 98490 55123',
+        score: '9.0 / 10',
+        image: '../../images/hyderabad_residences.jpg'
+      },
+      'hyd-2': {
+        name: 'Aparna Zenon',
+        company: 'Brigade Enterprises',
+        devId: 'BRIGADE',
+        locality: 'Puppalaguda, West Hyderabad',
+        type: 'Flat',
+        flatNo: 'E-0905',
+        floor: '9th Floor',
+        price: '₹1,76,00,000',
+        advance: '₹16,00,000',
+        email: 'ananya.rao@glasswindow.in',
+        phone: '+91 98480 23981',
+        score: '8.8 / 10',
+        image: '../../images/home_living_glass.jpg'
+      },
+      'hyd-3': {
+        name: 'Rajapushpa Provincia',
+        company: 'Sobha Ltd.',
+        devId: 'SOBHA',
+        locality: 'Narsingi, West Hyderabad',
+        type: 'Flat',
+        flatNo: 'P-1102',
+        floor: '11th Floor',
+        price: '₹1,62,00,000',
+        advance: '₹15,00,000',
+        email: 'karthik.varma@glasswindow.in',
+        phone: '+91 97012 88410',
+        score: '8.7 / 10',
+        image: '../../images/property_pune.jpg'
+      },
+      'hyd-4': {
+        name: 'Prestige Tranquil',
+        company: 'Prestige Estates',
+        devId: 'PRESTIGE',
+        locality: 'Kokapet, West Hyderabad',
+        type: 'Flat',
+        flatNo: 'K-1604',
+        floor: '16th Floor',
+        price: '₹1,92,00,000',
+        advance: '₹20,00,000',
+        email: 'divya.menon@glasswindow.in',
+        phone: '+91 98495 19023',
+        score: '9.1 / 10',
+        image: '../../images/home_villa_courtyard.jpg'
+      },
+      'del-1': {
+        name: 'Godrej South Estate',
+        company: 'Godrej Properties',
+        devId: 'GODREJPROP',
+        locality: 'Okhla Phase III, South Delhi',
+        type: 'Flat',
+        flatNo: 'S1-0703',
+        floor: '7th Floor',
+        price: '₹1,95,00,000',
+        advance: '₹20,00,000',
+        email: 'siddharth.kapoor@glasswindow.in',
+        phone: '+91 98110 44291',
+        score: '8.9 / 10',
+        image: '../../images/delhi_residences.jpg'
+      },
+      'del-2': {
+        name: 'DLF Capital Greens',
+        company: 'DLF Ltd.',
+        devId: 'DLF',
+        locality: 'Moti Nagar, West Delhi',
+        type: 'Flat',
+        flatNo: 'M-1105',
+        floor: '11th Floor',
+        price: '₹1,72,00,000',
+        advance: '₹17,00,000',
+        email: 'meera.sharma@glasswindow.in',
+        phone: '+91 98102 77315',
+        score: '8.7 / 10',
+        image: '../../images/property_mumbai.jpg'
+      },
+      'del-3': {
+        name: 'Unity The Amaryllis',
+        company: 'DLF Ltd.',
+        devId: 'DLF',
+        locality: 'Karol Bagh, Central Delhi',
+        type: 'Flat',
+        flatNo: 'U-1502',
+        floor: '15th Floor',
+        price: '₹1,88,00,000',
+        advance: '₹18,00,000',
+        email: 'aditya.malhotra@glasswindow.in',
+        phone: '+91 98118 65024',
+        score: '8.6 / 10',
+        image: '../../images/home_living_glass.jpg'
+      },
+      'del-4': {
+        name: 'Tarc Tripundra',
+        company: 'Godrej Properties',
+        devId: 'GODREJPROP',
+        locality: 'Bijwasan, South West Delhi',
+        type: 'Flat',
+        flatNo: 'B-0401',
+        floor: '4th Floor',
+        price: '₹1,64,00,000',
+        advance: '₹15,00,000',
+        email: 'priya.bhatia@glasswindow.in',
+        phone: '+91 98990 31845',
+        score: '8.5 / 10',
+        image: '../../images/hero_modern_residence.jpg'
+      }
+    };
+
+    function loadFlatDetail() {
+      var params = new URLSearchParams(window.location.search);
+      var id = params.get('id') || 'blr-1';
+      var flat = FLAT_DETAILS[id] || FLAT_DETAILS['blr-1'];
+
+      document.getElementById('detail-image').src = flat.image;
+      document.getElementById('detail-image').alt = flat.name;
+      document.getElementById('detail-score').textContent = flat.score;
+      document.getElementById('detail-name').textContent = flat.name;
+      document.getElementById('detail-locality').textContent = flat.locality;
+      document.getElementById('detail-price-top').textContent = flat.price;
+      document.getElementById('detail-advance-top').textContent = flat.advance;
+
+      document.getElementById('spec-apartment').textContent = flat.name;
+      var companyLink = document.getElementById('spec-company-link');
+      companyLink.textContent = flat.company;
+      companyLink.href = '../stocks/DeveloperStocks.html?dev=' + flat.devId;
+      document.getElementById('spec-type').textContent = flat.type;
+      document.getElementById('spec-flat-no').textContent = flat.flatNo;
+      document.getElementById('spec-floor').textContent = flat.floor;
+      document.getElementById('spec-price').textContent = flat.price;
+      document.getElementById('spec-advance').textContent = flat.advance;
+      document.getElementById('spec-email').textContent = flat.email;
+      document.getElementById('spec-phone').textContent = flat.phone;
+    }
+
+    loadFlatDetail();
+  </script>
+
+
+</body></html>

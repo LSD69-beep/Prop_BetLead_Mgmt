@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlassWindow — Choose Your City &amp; Area</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#0F4C5C',
+        'on-primary': '#FFFFFF',
+        'primary-container': '#D2E8ED',
+        'on-primary-container': '#09323D',
+        'secondary': '#B44D27',
+        'on-secondary': '#FFFFFF',
+        'secondary-container': '#FCE8E0',
+        'on-secondary-container': '#5C220D',
+        'accent': '#D97736',
+        'on-accent': '#2A2A2A',
+        'surface': '#F2F5F3',
+        'surface-container-low': '#E9EFEA',
+        'surface-container': '#FFFFFF',
+        'surface-container-high': '#DDE6E0',
+        'on-surface': '#152226',
+        'on-surface-variant': '#4B5E63',
+        'outline': '#8FA3A8',
+        'outline-variant': '#D0DDD7',
+        'success': '#1F7A4C',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'error': '#B91C1C',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '64px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Playfair Display"', 'sans-serif'],
+        'headline': ['"Montserrat"', 'sans-serif'],
+        'title': ['"Montserrat"', 'sans-serif'],
+        'body': ['"Montserrat"', 'sans-serif'],
+        'label': ['"Montserrat"', 'sans-serif'],
+        'mono': ['"Red Hat Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-0.75px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md': ['38px', { lineHeight: '46px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['34px', { lineHeight: '42px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.3px', fontWeight: '600' }],
+        'mono-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Red+Hat+Mono:wght@500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+    .map-zone {
+      transition: fill 200ms ease-out, stroke 200ms ease-out, opacity 200ms ease-out;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col bg-surface text-on-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-surface-container border-b border-outline-variant">
+      <div class="max-w-7xl mx-auto px-gutter-md h-20 flex items-center justify-between gap-gutter-md">
+        <a href="../homepage/GlassWindowHomepage.html" class="flex items-center gap-gutter-sm shrink-0">
+          <span class="w-9 h-9 rounded-DEFAULT bg-primary text-on-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-title-lg" aria-hidden="true">window</span>
+          </span>
+          <span class="font-display text-headline-sm text-primary tracking-tight" data-design-text-token="headline-sm">GlassWindow</span>
+        </a>
+
+        <a href="../customer-login/CustomerLogin.html" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-md bg-surface-container border border-outline-variant font-label text-label-md text-on-surface-variant hover:text-primary hover:border-primary transition-colors duration-state-change">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">logout</span>
+          <span data-design-text-token="label-md">Sign Out</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 py-gutter-xl px-gutter-md bg-surface">
+      <div class="max-w-6xl mx-auto w-full flex flex-col gap-gutter-xl">
+
+        <!-- Top City Slider Bar -->
+        <section aria-label="Select city" class="flex flex-col items-center gap-gutter-sm">
+          <span class="font-label text-label-md text-on-surface-variant" data-design-text-token="label-md">Select your city</span>
+          <div data-component-id="tabs-horizontal" data-component-type="tabs" data-component-variant="horizontal" class="w-full max-w-2xl">
+            <div role="tablist" aria-label="City selector slider" class="grid grid-cols-3 p-gutter-xs rounded-xl bg-surface-container border border-outline-variant shadow-sm gap-gutter-xs">
+              <button type="button" role="tab" id="city-tab-Hyderabad" aria-selected="false" onclick="selectCity(&#39;Hyderabad&#39;)" class="city-slider-btn flex items-center justify-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-lg text-on-surface-variant hover:text-on-surface font-label text-label-lg transition-all duration-state-change">
+                <span class="material-symbols-outlined text-title-md" aria-hidden="true">location_city</span>
+                <span data-design-text-token="label-lg">Hyderabad</span>
+              </button>
+              <button type="button" role="tab" id="city-tab-Bangalore" aria-selected="true" onclick="selectCity(&#39;Bangalore&#39;)" class="city-slider-btn flex items-center justify-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-lg bg-primary text-on-primary shadow-sm font-label text-label-lg transition-all duration-state-change">
+                <span class="material-symbols-outlined text-title-md" aria-hidden="true">location_city</span>
+                <span data-design-text-token="label-lg">Bangalore</span>
+              </button>
+              <button type="button" role="tab" id="city-tab-Delhi" aria-selected="false" onclick="selectCity(&#39;Delhi&#39;)" class="city-slider-btn flex items-center justify-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-lg text-on-surface-variant hover:text-on-surface font-label text-label-lg transition-all duration-state-change">
+                <span class="material-symbols-outlined text-title-md" aria-hidden="true">location_city</span>
+                <span data-design-text-token="label-lg">Delhi</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Split Card: Left Half (North, South, East, West) + Right Half (City Map) -->
+        <section class="rounded-xl bg-surface-container border border-outline-variant shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-stretch">
+
+          <!-- Left Half: 4 Directional Options -->
+          <div class="lg:col-span-6 p-gutter-xl flex flex-col justify-between gap-gutter-lg">
+            <div class="flex flex-col gap-gutter-lg">
+              <div class="flex items-center justify-between gap-gutter-sm">
+                <span class="font-body text-body-md text-on-surface-variant" data-design-text-token="body-md">Tell us about your home.</span>
+                <span class="px-gutter-sm py-gutter-xs rounded-DEFAULT bg-success-container text-on-success-container font-mono text-mono-sm tabular-nums" data-design-text-token="mono-sm">1/4</span>
+              </div>
+
+              <h1 id="area-question" class="font-display text-headline-lg-mobile lg:text-headline-lg text-on-surface text-balance" data-design-text-token="headline-lg">
+                What&#39;s your preferred area in Bangalore?
+              </h1>
+
+              <!-- 4 Area Options: North, South, East, West -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter-md items-stretch">
+                <button type="button" id="area-btn-North" onclick="selectZone(&#39;North&#39;)" data-component-id="card-area-option" data-component-type="card" data-component-variant="interactive" class="area-card text-left rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col gap-gutter-xs hover:border-primary transition-colors duration-state-change h-full cursor-pointer">
+                  <span class="font-title text-title-md text-on-surface" data-design-text-token="title-md">North</span>
+                  <span id="area-desc-North" class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Yelahanka, Hennur, Hebbal etc.</span>
+                </button>
+
+                <button type="button" id="area-btn-South" onclick="selectZone(&#39;South&#39;)" data-component-id="card-area-option" data-component-type="card" data-component-variant="interactive" class="area-card text-left rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col gap-gutter-xs hover:border-primary transition-colors duration-state-change h-full cursor-pointer">
+                  <span class="font-title text-title-md text-on-surface" data-design-text-token="title-md">South</span>
+                  <span id="area-desc-South" class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">E-city, Sarjapur Rd., HSR etc.</span>
+                </button>
+
+                <button type="button" id="area-btn-East" onclick="selectZone(&#39;East&#39;)" data-component-id="card-area-option" data-component-type="card" data-component-variant="interactive" class="area-card text-left rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col gap-gutter-xs hover:border-primary transition-colors duration-state-change h-full cursor-pointer">
+                  <span class="font-title text-title-md text-on-surface" data-design-text-token="title-md">East</span>
+                  <span id="area-desc-East" class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Whitefield, Varthur, ORR etc.</span>
+                </button>
+
+                <button type="button" id="area-btn-West" onclick="selectZone(&#39;West&#39;)" data-component-id="card-area-option" data-component-type="card" data-component-variant="interactive" class="area-card text-left rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col gap-gutter-xs hover:border-primary transition-colors duration-state-change h-full cursor-pointer">
+                  <span class="font-title text-title-md text-on-surface" data-design-text-token="title-md">West</span>
+                  <span id="area-desc-West" class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Rajajinagar, Yeshwanthpur etc.</span>
+                </button>
+              </div>
+
+              <!-- Need Advice Card -->
+              <button type="button" onclick="selectZone(&#39;Advice&#39;)" class="w-full text-left rounded-lg bg-surface-container-low border border-outline-variant p-gutter-md flex flex-col gap-gutter-xs hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <span class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Need Advice</span>
+                <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">We&#39;ve helped 1,500+ families shortlist the right zone.</span>
+              </button>
+
+              <div id="zone-feedback" class="hidden p-gutter-sm rounded-DEFAULT bg-success-container text-on-success-container font-body text-body-sm"></div>
+
+              <a id="continue-btn" href="../preferences/HomePreferences.html" data-component-id="button-primary" data-component-type="button" data-component-variant="primary" class="w-full inline-flex items-center justify-center gap-gutter-sm px-gutter-lg py-gutter-sm min-h-[44px] rounded-md bg-primary text-on-primary font-label text-label-lg hover:opacity-90 transition-all duration-state-change">
+                <span data-design-text-token="label-lg">Continue</span>
+                <span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_forward</span>
+              </a>
+            </div>
+
+            <p class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">
+              By proceeding, you agree to our terms &amp; privacy policy.
+            </p>
+          </div>
+
+          <!-- Right Half: Interactive City Map -->
+          <div class="lg:col-span-6 bg-surface-container-low border-t lg:border-t-0 lg:border-l border-outline-variant p-gutter-xl flex flex-col items-center justify-center gap-gutter-md">
+            <div class="w-full flex items-center justify-between">
+              <span id="map-city-label" class="font-label text-label-lg text-primary" data-design-text-token="label-lg">Bangalore Zone Map</span>
+              <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Click a zone</span>
+            </div>
+
+            <div class="w-full max-w-md aspect-square flex items-center justify-center">
+              <svg id="city-map-svg" viewBox="0 0 400 400" class="w-full h-full" role="img" aria-label="Interactive city zone map">
+                <!-- Subtle map grid / roads -->
+                <rect x="0" y="0" width="400" height="400" rx="16" fill="#F2F5F3"></rect>
+                <path d="M40 200 L360 200 M200 40 L200 360 M85 85 L315 315 M315 85 L85 315" stroke="#DDE6E0" stroke-width="2" stroke-dasharray="4 4"></path>
+
+                <!-- North Zone -->
+                <path id="map-zone-North" onclick="selectZone(&#39;North&#39;)" class="map-zone" d="M115 70 L200 38 L285 70 L300 135 L200 175 L100 135 Z" fill="#E9EFEA" stroke="#8FA3A8" stroke-width="2"></path>
+                <text x="200" y="108" text-anchor="middle" fill="#152226" font-family="Montserrat, sans-serif" font-size="14" font-weight="600" pointer-events="none">North</text>
+
+                <!-- East Zone -->
+                <path id="map-zone-East" onclick="selectZone(&#39;East&#39;)" class="map-zone" d="M300 135 L355 200 L305 275 L200 225 L200 175 Z" fill="#E9EFEA" stroke="#8FA3A8" stroke-width="2"></path>
+                <text x="275" y="205" text-anchor="middle" fill="#152226" font-family="Montserrat, sans-serif" font-size="14" font-weight="600" pointer-events="none">East</text>
+
+                <!-- South Zone -->
+                <path id="map-zone-South" onclick="selectZone(&#39;South&#39;)" class="map-zone" d="M100 275 L200 225 L305 275 L275 345 L200 365 L125 345 Z" fill="#E9EFEA" stroke="#8FA3A8" stroke-width="2"></path>
+                <text x="200" y="302" text-anchor="middle" fill="#152226" font-family="Montserrat, sans-serif" font-size="14" font-weight="600" pointer-events="none">South</text>
+
+                <!-- West Zone -->
+                <path id="map-zone-West" onclick="selectZone(&#39;West&#39;)" class="map-zone" d="M100 135 L200 175 L200 225 L100 275 L48 200 Z" fill="#E9EFEA" stroke="#8FA3A8" stroke-width="2"></path>
+                <text x="122" y="205" text-anchor="middle" fill="#152226" font-family="Montserrat, sans-serif" font-size="14" font-weight="600" pointer-events="none">West</text>
+              </svg>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container border-t border-outline-variant py-gutter-lg">
+      <div class="max-w-7xl mx-auto px-gutter-md flex flex-col sm:flex-row items-center justify-between gap-gutter-sm">
+        <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">© 2026 GlassWindow Advisory Pvt. Ltd.</span>
+        <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Hyderabad • Bangalore • Delhi</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    var currentCity = 'Bangalore';
+    var cityData = {
+      Hyderabad: {
+        North: 'Kompally, Miyapur, Bachupally etc.',
+        South: 'Shamshabad, Rajendranagar, Adibatla etc.',
+        East: 'Uppal, LB Nagar, Pocharam etc.',
+        West: 'Gachibowli, HITEC City, Kondapur etc.'
+      },
+      Bangalore: {
+        North: 'Yelahanka, Hennur, Hebbal etc.',
+        South: 'E-city, Sarjapur Rd., HSR etc.',
+        East: 'Whitefield, Varthur, ORR etc.',
+        West: 'Rajajinagar, Yeshwanthpur etc.'
+      },
+      Delhi: {
+        North: 'Rohini, Pitampura, Civil Lines etc.',
+        South: 'Greater Kailash, Saket, Vasant Vihar etc.',
+        East: 'Mayur Vihar, Preet Vihar, Patparganj etc.',
+        West: 'Dwarka, Janakpuri, Punjabi Bagh etc.'
+      }
+    };
+
+    function selectCity(city) {
+      currentCity = city;
+      var tabs = document.querySelectorAll('.city-slider-btn');
+      tabs.forEach(function (tab) {
+        var isSelected = tab.id === 'city-tab-' + city;
+        tab.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+        if (isSelected) {
+          tab.className = 'city-slider-btn flex items-center justify-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-lg bg-primary text-on-primary shadow-sm font-label text-label-lg transition-all duration-state-change';
+        } else {
+          tab.className = 'city-slider-btn flex items-center justify-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-lg text-on-surface-variant hover:text-on-surface font-label text-label-lg transition-all duration-state-change';
+        }
+      });
+
+      document.getElementById('area-question').textContent = "What's your preferred area in " + city + "?";
+      document.getElementById('map-city-label').textContent = city + " Zone Map";
+      document.getElementById('area-desc-North').textContent = cityData[city].North;
+      document.getElementById('area-desc-South').textContent = cityData[city].South;
+      document.getElementById('area-desc-East').textContent = cityData[city].East;
+      document.getElementById('area-desc-West').textContent = cityData[city].West;
+
+      clearZoneSelection();
+    }
+
+    function clearZoneSelection() {
+      document.querySelectorAll('.area-card').forEach(function (card) {
+        card.classList.remove('border-primary', 'bg-primary-container/30', 'ring-1', 'ring-primary');
+      });
+      ['North', 'South', 'East', 'West'].forEach(function (z) {
+        var poly = document.getElementById('map-zone-' + z);
+        if (poly) {
+          poly.setAttribute('fill', '#E9EFEA');
+          poly.setAttribute('stroke', '#8FA3A8');
+        }
+      });
+      document.getElementById('zone-feedback').classList.add('hidden');
+    }
+
+    function selectZone(zone) {
+      clearZoneSelection();
+      var feedback = document.getElementById('zone-feedback');
+      if (zone === 'Advice') {
+        feedback.textContent = 'An advisor for ' + currentCity + ' will help you pick the best zone.';
+        feedback.classList.remove('hidden');
+        return;
+      }
+
+      var card = document.getElementById('area-btn-' + zone);
+      if (card) {
+        card.classList.add('border-primary', 'bg-primary-container/30', 'ring-1', 'ring-primary');
+      }
+      var poly = document.getElementById('map-zone-' + zone);
+      if (poly) {
+        poly.setAttribute('fill', '#D2E8ED');
+        poly.setAttribute('stroke', '#0F4C5C');
+      }
+      feedback.textContent = 'Selected ' + zone + ' ' + currentCity + ' (' + cityData[currentCity][zone] + ')';
+      feedback.classList.remove('hidden');
+    }
+  </script>
+
+
+</body></html>

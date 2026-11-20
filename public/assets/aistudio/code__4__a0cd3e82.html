@@ -1,0 +1,325 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlassWindow — Home Preferences</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#0F4C5C',
+        'on-primary': '#FFFFFF',
+        'primary-container': '#D2E8ED',
+        'on-primary-container': '#09323D',
+        'secondary': '#B44D27',
+        'on-secondary': '#FFFFFF',
+        'secondary-container': '#FCE8E0',
+        'on-secondary-container': '#5C220D',
+        'accent': '#D97736',
+        'on-accent': '#2A2A2A',
+        'surface': '#F2F5F3',
+        'surface-container-low': '#E9EFEA',
+        'surface-container': '#FFFFFF',
+        'surface-container-high': '#DDE6E0',
+        'on-surface': '#152226',
+        'on-surface-variant': '#4B5E63',
+        'outline': '#8FA3A8',
+        'outline-variant': '#D0DDD7',
+        'success': '#1F7A4C',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'error': '#B91C1C',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '64px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Playfair Display"', 'sans-serif'],
+        'headline': ['"Montserrat"', 'sans-serif'],
+        'title': ['"Montserrat"', 'sans-serif'],
+        'body': ['"Montserrat"', 'sans-serif'],
+        'label': ['"Montserrat"', 'sans-serif'],
+        'mono': ['"Red Hat Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-0.75px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md': ['38px', { lineHeight: '46px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['34px', { lineHeight: '42px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.3px', fontWeight: '600' }],
+        'mono-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Red+Hat+Mono:wght@500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col bg-surface text-on-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-surface-container border-b border-outline-variant">
+      <div class="max-w-7xl mx-auto px-gutter-lg h-20 flex items-center justify-between gap-gutter-md">
+        <a href="../homepage/GlassWindowHomepage.html" class="flex items-center gap-gutter-sm shrink-0">
+          <span class="w-9 h-9 rounded-DEFAULT bg-primary text-on-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-title-lg" aria-hidden="true">window</span>
+          </span>
+          <span class="font-display text-headline-sm text-primary tracking-tight" data-design-text-token="headline-sm">GlassWindow</span>
+        </a>
+
+        <a href="../city-select/CitySelection.html" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-md bg-surface-container border border-outline-variant font-label text-label-md text-on-surface-variant hover:text-primary hover:border-primary transition-colors duration-state-change">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_back</span>
+          <span data-design-text-token="label-md">Change Location</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 py-gutter-xl px-gutter-lg bg-surface">
+      <div class="max-w-3xl mx-auto w-full flex flex-col gap-gutter-xl">
+
+        <!-- Page Heading -->
+        <div class="flex flex-col gap-gutter-xs">
+          <div class="flex items-center justify-between gap-gutter-sm">
+            <span class="font-body text-body-md text-on-surface-variant" data-design-text-token="body-md">Tell us about your home.</span>
+            <span class="px-gutter-sm py-gutter-xs rounded-DEFAULT bg-success-container text-on-success-container font-mono text-mono-sm tabular-nums" data-design-text-token="mono-sm">2/4</span>
+          </div>
+          <h1 class="font-display text-display-md-mobile lg:text-display-md text-on-surface text-balance" data-design-text-token="display-md">
+            Your flat preferences
+          </h1>
+        </div>
+
+        <!-- Vertically Stacked 3 Steps -->
+        <div class="flex flex-col gap-gutter-lg">
+
+          <!-- Step 1: Rental or Own -->
+          <section id="step-purpose" class="rounded-xl bg-surface-container border border-outline-variant p-gutter-xl shadow-sm flex flex-col gap-gutter-md">
+            <div class="flex items-center justify-between gap-gutter-sm">
+              <h2 class="font-headline text-headline-sm text-on-surface" data-design-text-token="headline-sm">1. Are you looking for rental or own?</h2>
+              <span id="purpose-status" class="hidden px-gutter-sm py-gutter-xs rounded-full bg-success-container text-on-success-container font-label text-label-sm" data-design-text-token="label-sm">Selected</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter-md">
+              <label class="purpose-btn text-left rounded-lg bg-surface-container border border-outline-variant p-gutter-lg flex items-center gap-gutter-md hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <input type="radio" name="purpose" value="Own" class="sr-only" onchange="selectPurpose(&#39;Own&#39;, this.closest(&#39;.purpose-btn&#39;))">
+                <span class="w-11 h-11 rounded-md bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-title-lg" aria-hidden="true">home</span>
+                </span>
+                <div class="flex flex-col">
+                  <span class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Own / Buy</span>
+                  <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Purchase a residential flat</span>
+                </div>
+              </label>
+
+              <label class="purpose-btn text-left rounded-lg bg-surface-container border border-outline-variant p-gutter-lg flex items-center gap-gutter-md hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <input type="radio" name="purpose" value="Rental" class="sr-only" onchange="selectPurpose(&#39;Rental&#39;, this.closest(&#39;.purpose-btn&#39;))">
+                <span class="w-11 h-11 rounded-md bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-title-lg" aria-hidden="true">key</span>
+                </span>
+                <div class="flex flex-col">
+                  <span class="font-title text-title-md text-on-surface" data-design-text-token="title-md">Rental</span>
+                  <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">Lease a verified apartment</span>
+                </div>
+              </label>
+            </div>
+          </section>
+
+          <!-- Step 2: How Many Bedrooms -->
+          <section id="step-bedrooms" class="rounded-xl bg-surface-container border border-outline-variant p-gutter-xl shadow-sm flex flex-col gap-gutter-md transition-colors duration-surface-enter">
+            <div class="flex items-center justify-between gap-gutter-sm">
+              <h2 class="font-headline text-headline-sm text-on-surface" data-design-text-token="headline-sm">2. How many bedrooms do you want?</h2>
+              <span id="bedroom-status" class="hidden px-gutter-sm py-gutter-xs rounded-full bg-success-container text-on-success-container font-label text-label-sm" data-design-text-token="label-sm">Selected</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-gutter-md">
+              <button type="button" onclick="selectBedrooms(&#39;1 BHK&#39;, this)" class="bedroom-btn rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col items-center justify-center gap-gutter-xs hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <span class="font-title text-title-lg text-on-surface tabular-nums" data-design-text-token="title-lg">1 BHK</span>
+                <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">1 Bedroom</span>
+              </button>
+
+              <button type="button" onclick="selectBedrooms(&#39;2 BHK&#39;, this)" class="bedroom-btn rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col items-center justify-center gap-gutter-xs hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <span class="font-title text-title-lg text-on-surface tabular-nums" data-design-text-token="title-lg">2 BHK</span>
+                <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">2 Bedrooms</span>
+              </button>
+
+              <button type="button" onclick="selectBedrooms(&#39;3 BHK&#39;, this)" class="bedroom-btn rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col items-center justify-center gap-gutter-xs hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <span class="font-title text-title-lg text-on-surface tabular-nums" data-design-text-token="title-lg">3 BHK</span>
+                <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">3 Bedrooms</span>
+              </button>
+
+              <button type="button" onclick="selectBedrooms(&#39;4+ BHK&#39;, this)" class="bedroom-btn rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col items-center justify-center gap-gutter-xs hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <span class="font-title text-title-lg text-on-surface tabular-nums" data-design-text-token="title-lg">4+ BHK</span>
+                <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">4+ Bedrooms</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- Step 3: Budget Range (Only 4 Options) -->
+          <section id="step-budget" class="rounded-xl bg-surface-container border border-outline-variant p-gutter-xl shadow-sm flex flex-col gap-gutter-md transition-colors duration-surface-enter">
+            <div class="flex items-center justify-between gap-gutter-sm">
+              <h2 class="font-headline text-headline-sm text-on-surface" data-design-text-token="headline-sm">3. What is your flat budget range?</h2>
+              <span id="budget-status" class="hidden px-gutter-sm py-gutter-xs rounded-full bg-success-container text-on-success-container font-label text-label-sm" data-design-text-token="label-sm">Selected</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-gutter-md">
+              <button type="button" onclick="selectBudget(&#39;&lt; 50 Lakhs&#39;, this)" class="budget-btn rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col items-center justify-center text-center hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <span class="font-mono text-title-md text-on-surface tabular-nums" data-design-text-token="title-md">&lt; 50 Lakhs</span>
+              </button>
+
+              <button type="button" onclick="selectBudget(&#39;50L – 1 Cr&#39;, this)" class="budget-btn rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col items-center justify-center text-center hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <span class="font-mono text-title-md text-on-surface tabular-nums" data-design-text-token="title-md">50L – 1 Cr</span>
+              </button>
+
+              <button type="button" onclick="selectBudget(&#39;1 Cr – 2 Cr&#39;, this)" class="budget-btn rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col items-center justify-center text-center hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <span class="font-mono text-title-md text-on-surface tabular-nums" data-design-text-token="title-md">1 Cr – 2 Cr</span>
+              </button>
+
+              <button type="button" onclick="selectBudget(&#39;&gt; 2 Cr&#39;, this)" class="budget-btn rounded-lg bg-surface-container border border-outline-variant p-gutter-md flex flex-col items-center justify-center text-center hover:border-primary transition-colors duration-state-change cursor-pointer">
+                <span class="font-mono text-title-md text-on-surface tabular-nums" data-design-text-token="title-md">&gt; 2 Cr</span>
+              </button>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Summary & Continue -->
+        <div id="pref-feedback" class="hidden p-gutter-md rounded-lg bg-success-container text-on-success-container font-body text-body-md"></div>
+
+        <button type="button" onclick="finishPreferences()" data-component-id="button-primary" data-component-type="button" data-component-variant="primary" class="w-full inline-flex items-center justify-center gap-gutter-sm px-gutter-lg py-gutter-sm min-h-[44px] rounded-md bg-primary text-on-primary font-label text-label-lg hover:opacity-90 transition-colors duration-state-change">
+          <span data-design-text-token="label-lg">Verify Matching Flats</span>
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_forward</span>
+        </button>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container border-t border-outline-variant py-gutter-lg">
+      <div class="max-w-7xl mx-auto px-gutter-lg flex flex-col sm:flex-row items-center justify-between gap-gutter-sm">
+        <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">© 2026 GlassWindow Advisory Pvt. Ltd.</span>
+        <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Home Preferences</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    var chosenPurpose = '';
+    var chosenBedrooms = '';
+    var chosenBudget = '';
+
+    function selectPurpose(val, el) {
+      chosenPurpose = val;
+      document.querySelectorAll('.purpose-btn').forEach(function (b) {
+        b.classList.remove('border-primary', 'bg-primary-container/30', 'ring-1', 'ring-primary');
+      });
+      el.classList.add('border-primary', 'bg-primary-container/30', 'ring-1', 'ring-primary');
+      document.getElementById('purpose-status').classList.remove('hidden');
+      document.getElementById('step-bedrooms').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function selectBedrooms(val, el) {
+      chosenBedrooms = val;
+      document.querySelectorAll('.bedroom-btn').forEach(function (b) {
+        b.classList.remove('border-primary', 'bg-primary-container/30', 'ring-1', 'ring-primary');
+      });
+      el.classList.add('border-primary', 'bg-primary-container/30', 'ring-1', 'ring-primary');
+      document.getElementById('bedroom-status').classList.remove('hidden');
+      document.getElementById('step-budget').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function selectBudget(val, el) {
+      chosenBudget = val;
+      document.querySelectorAll('.budget-btn').forEach(function (b) {
+        b.classList.remove('border-primary', 'bg-primary-container/30', 'ring-1', 'ring-primary');
+      });
+      el.classList.add('border-primary', 'bg-primary-container/30', 'ring-1', 'ring-primary');
+      document.getElementById('budget-status').classList.remove('hidden');
+    }
+
+    function finishPreferences() {
+      var feedback = document.getElementById('pref-feedback');
+      if (!chosenPurpose || !chosenBedrooms || !chosenBudget) {
+        feedback.textContent = 'Please select Rental/Own, Bedrooms, and Budget Range to continue.';
+        feedback.classList.remove('hidden');
+        return;
+      }
+      try {
+        localStorage.setItem('gw_purpose', chosenPurpose);
+        localStorage.setItem('gw_bedrooms', chosenBedrooms);
+        localStorage.setItem('gw_budget', chosenBudget);
+      } catch (e) {}
+      var params = new URLSearchParams({
+        purpose: chosenPurpose,
+        bedrooms: chosenBedrooms,
+        budget: chosenBudget
+      });
+      window.location.href = '../listings/MatchingFlats.html?' + params.toString();
+    }
+  </script>
+
+
+</body></html>

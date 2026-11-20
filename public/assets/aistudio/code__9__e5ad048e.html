@@ -1,0 +1,538 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlassWindow — Company Buildings &amp; Locations</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">/** @type {import('tailwindcss').Config} */
+globalThis.tailwind = globalThis.tailwind || {};
+globalThis.tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        'primary': '#0F4C5C',
+        'on-primary': '#FFFFFF',
+        'primary-container': '#D2E8ED',
+        'on-primary-container': '#09323D',
+        'secondary': '#B44D27',
+        'on-secondary': '#FFFFFF',
+        'secondary-container': '#FCE8E0',
+        'on-secondary-container': '#5C220D',
+        'accent': '#D97736',
+        'on-accent': '#2A2A2A',
+        'surface': '#F2F5F3',
+        'surface-container-low': '#E9EFEA',
+        'surface-container': '#FFFFFF',
+        'surface-container-high': '#DDE6E0',
+        'on-surface': '#152226',
+        'on-surface-variant': '#4B5E63',
+        'outline': '#8FA3A8',
+        'outline-variant': '#D0DDD7',
+        'success': '#1F7A4C',
+        'on-success': '#FFFFFF',
+        'success-container': '#DCFCE7',
+        'on-success-container': '#14532D',
+        'warning': '#B45309',
+        'on-warning': '#FFFFFF',
+        'error': '#B91C1C',
+        'on-error': '#FFFFFF',
+      },
+      borderRadius: {
+        'sm': '4px',
+        'DEFAULT': '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '24px',
+        'full': '9999px',
+      },
+      spacing: {
+        'gutter-xs': '4px',
+        'gutter-sm': '8px',
+        'gutter-md': '16px',
+        'gutter-lg': '24px',
+        'gutter-xl': '32px',
+        'section': '64px',
+        'page-margin': '24px',
+      },
+      fontFamily: {
+        'display': ['"Playfair Display"', 'sans-serif'],
+        'headline': ['"Montserrat"', 'sans-serif'],
+        'title': ['"Montserrat"', 'sans-serif'],
+        'body': ['"Montserrat"', 'sans-serif'],
+        'label': ['"Montserrat"', 'sans-serif'],
+        'mono': ['"Red Hat Mono"', 'monospace'],
+      },
+      fontSize: {
+        'display-lg': ['48px', { lineHeight: '56px', letterSpacing: '-0.75px', fontWeight: '700' }],
+        'display-lg-mobile': ['32px', { lineHeight: '40px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md': ['38px', { lineHeight: '46px', letterSpacing: '-0.5px', fontWeight: '700' }],
+        'display-md-mobile': ['28px', { lineHeight: '36px', letterSpacing: '-0.25px', fontWeight: '700' }],
+        'headline-lg': ['34px', { lineHeight: '42px', letterSpacing: '-0.25px', fontWeight: '600' }],
+        'headline-lg-mobile': ['24px', { lineHeight: '32px', letterSpacing: '0px', fontWeight: '600' }],
+        'headline-md': ['24px', { lineHeight: '32px', letterSpacing: '-0.2px', fontWeight: '700' }],
+        'headline-sm': ['20px', { lineHeight: '28px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-lg': ['18px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '600' }],
+        'title-md': ['16px', { lineHeight: '24px', letterSpacing: '0px', fontWeight: '600' }],
+        'body-lg': ['16px', { lineHeight: '26px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-md': ['14px', { lineHeight: '22px', letterSpacing: '0px', fontWeight: '400' }],
+        'body-sm': ['12px', { lineHeight: '18px', letterSpacing: '0.1px', fontWeight: '400' }],
+        'label-lg': ['14px', { lineHeight: '20px', letterSpacing: '0.1px', fontWeight: '600' }],
+        'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.2px', fontWeight: '600' }],
+        'label-sm': ['11px', { lineHeight: '14px', letterSpacing: '0.3px', fontWeight: '600' }],
+        'mono-md': ['14px', { lineHeight: '20px', letterSpacing: '0px', fontWeight: '500' }],
+        'mono-sm': ['12px', { lineHeight: '16px', letterSpacing: '0px', fontWeight: '500' }],
+      },
+      transitionDuration: {
+        'state-change': '150ms',
+        'surface-enter': '250ms',
+        'surface-exit': '150ms',
+      },
+      transitionDelay: {
+        'state-change': '0ms',
+        'surface-enter': '0ms',
+        'surface-exit': '0ms',
+      },
+      transitionTimingFunction: {
+        'state-change': 'ease-out',
+        'surface-enter': 'cubic-bezier(0.2, 0, 0, 1)',
+        'surface-exit': 'cubic-bezier(0.3, 0, 1, 1)',
+      },
+    },
+  },
+};
+if (typeof module !== 'undefined') module.exports = globalThis.tailwind.config;
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&amp;family=Montserrat:wght@400;500;600;700&amp;family=Red+Hat+Mono:wght@500&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
+  <style>
+    .material-symbols-outlined {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      line-height: 1 !important;
+      box-sizing: content-box;
+      overflow: hidden;
+      white-space: nowrap;
+      direction: ltr;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+  <div class="min-h-[1024px] flex flex-col bg-surface text-on-surface" data-stitch-vh="min-h-[1024px]===min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-surface-container border-b border-outline-variant">
+      <div class="max-w-7xl mx-auto px-gutter-lg h-20 flex items-center justify-between gap-gutter-md">
+        <a href="../homepage/GlassWindowHomepage.html" class="flex items-center gap-gutter-sm shrink-0">
+          <span class="w-9 h-9 rounded-DEFAULT bg-secondary text-on-secondary flex items-center justify-center">
+            <span class="material-symbols-outlined text-title-lg" aria-hidden="true">window</span>
+          </span>
+          <span class="font-display text-headline-sm text-primary tracking-tight" data-design-text-token="headline-sm">GlassWindow</span>
+        </a>
+
+        <a href="../agent-portal/AgentFlats.html" class="inline-flex items-center gap-gutter-xs px-gutter-md py-gutter-sm rounded-md bg-surface-container border border-outline-variant font-label text-label-md text-on-surface-variant hover:text-secondary hover:border-secondary transition-colors duration-state-change">
+          <span class="material-symbols-outlined text-title-md" aria-hidden="true">arrow_back</span>
+          <span data-design-text-token="label-md">All Companies &amp; Flats</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="flex-1 py-gutter-xl px-gutter-lg bg-surface">
+      <div class="max-w-7xl mx-auto w-full flex flex-col gap-gutter-xl">
+
+        <!-- Company Name at the Top -->
+        <section aria-label="Selected developer company" class="rounded-xl bg-surface-container border border-outline-variant p-gutter-xl shadow-sm flex flex-col md:flex-row md:items-end justify-between gap-gutter-lg">
+          <div class="flex flex-col gap-gutter-xs">
+            <div class="flex items-center gap-gutter-sm">
+              <span class="px-gutter-sm py-gutter-xs rounded-DEFAULT bg-secondary-container text-on-secondary-container font-mono text-mono-sm" data-design-text-token="mono-sm">Developer Portfolio</span>
+              <span id="company-hq" class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Headquarters: Bengaluru</span>
+            </div>
+            <h1 id="company-name" class="font-display text-display-md-mobile lg:text-display-md text-on-surface text-balance" data-design-text-token="display-md">
+              Sobha Limited
+            </h1>
+            <p class="font-body text-body-md text-on-surface-variant" data-design-text-token="body-md">
+              All building locations across Already Present, Under Construction, and About to Start stages.
+            </p>
+          </div>
+
+          <!-- Stage Filter Tabs -->
+          <div class="flex flex-wrap items-center gap-gutter-xs" role="group" aria-label="Filter by construction stage">
+            <button type="button" onclick="setStage(&#39;All&#39;)" class="stage-btn px-gutter-md py-gutter-sm min-h-[40px] rounded-md font-label text-label-md cursor-pointer">All</button>
+            <button type="button" onclick="setStage(&#39;Already Present&#39;)" class="stage-btn px-gutter-md py-gutter-sm min-h-[40px] rounded-md font-label text-label-md cursor-pointer">Already Present</button>
+            <button type="button" onclick="setStage(&#39;Under Construction&#39;)" class="stage-btn px-gutter-md py-gutter-sm min-h-[40px] rounded-md font-label text-label-md cursor-pointer">Under Construction</button>
+            <button type="button" onclick="setStage(&#39;About to Start&#39;)" class="stage-btn px-gutter-md py-gutter-sm min-h-[40px] rounded-md font-label text-label-md cursor-pointer">About to Start</button>
+          </div>
+        </section>
+
+        <!-- Buildings & Embedded Locations Grid -->
+        <section aria-label="Company buildings and locations" class="flex flex-col gap-gutter-lg">
+          <div class="flex items-center justify-between gap-gutter-sm">
+            <h2 class="font-headline text-headline-sm text-on-surface" data-design-text-token="headline-sm">Building Locations</h2>
+            <span id="projects-count" class="font-mono text-mono-sm text-on-surface-variant tabular-nums" data-design-text-token="mono-sm">3 sites</span>
+          </div>
+
+          <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-3 gap-gutter-lg items-stretch">
+            <!-- Populated by script -->
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container border-t border-outline-variant py-gutter-lg">
+      <div class="max-w-7xl mx-auto px-gutter-lg flex flex-col sm:flex-row items-center justify-between gap-gutter-sm">
+        <span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">© 2026 GlassWindow Advisory Pvt. Ltd.</span>
+        <span class="font-mono text-mono-sm text-on-surface-variant" data-design-text-token="mono-sm">Company Building Locations</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    var COMPANY_PORTFOLIOS = {
+      'Sobha Limited': {
+        hq: 'Headquarters: Bengaluru',
+        buildings: [
+          {
+            name: 'Sobha Neopolis',
+            stage: 'Already Present',
+            place: 'Panathur Road, East Bengaluru',
+            coords: '12.9362° N, 77.7054° E',
+            units: '1,875 Units • Ready / Handover',
+            pinX: 215,
+            pinY: 95
+          },
+          {
+            name: 'Sobha Dream Acres',
+            stage: 'Already Present',
+            place: 'Balagere, East Bengaluru',
+            coords: '12.9445° N, 77.7312° E',
+            units: '6,500 Units • Occupied',
+            pinX: 245,
+            pinY: 85
+          },
+          {
+            name: 'Sobha Townpark',
+            stage: 'Under Construction',
+            place: 'Hosur Road, South Bengaluru',
+            coords: '12.8012° N, 77.6980° E',
+            units: '2,100 Units • Possession 2027',
+            pinX: 175,
+            pinY: 125
+          },
+          {
+            name: 'Sobha Crystal Meadows',
+            stage: 'Under Construction',
+            place: 'Sarjapur Road, Bengaluru',
+            coords: '12.8910° N, 77.7420° E',
+            units: '290 Villas • Structure Stage',
+            pinX: 195,
+            pinY: 110
+          },
+          {
+            name: 'Sobha Sentosa II',
+            stage: 'About to Start',
+            place: 'Panathur Main Rd, Bengaluru',
+            coords: '12.9410° N, 77.7120° E',
+            units: '640 Units • Pre-Launch Q2',
+            pinX: 230,
+            pinY: 65
+          }
+        ]
+      },
+      'Prestige Estates Projects Limited': {
+        hq: 'Headquarters: Bengaluru',
+        buildings: [
+          {
+            name: 'Prestige Tranquil',
+            stage: 'Already Present',
+            place: 'Kokapet, West Hyderabad',
+            coords: '17.3948° N, 78.3340° E',
+            units: '906 Units • Ready to Move',
+            pinX: 95,
+            pinY: 85
+          },
+          {
+            name: 'Prestige Falcon City',
+            stage: 'Already Present',
+            place: 'Kanakapura Rd, South Bengaluru',
+            coords: '12.8825° N, 77.5612° E',
+            units: '2,520 Units • Occupied',
+            pinX: 120,
+            pinY: 118
+          },
+          {
+            name: 'Prestige Park Grove',
+            stage: 'Under Construction',
+            place: 'Whitefield, East Bengaluru',
+            coords: '12.9896° N, 77.7497° E',
+            units: '3,627 Units • Possession 2027',
+            pinX: 230,
+            pinY: 80
+          },
+          {
+            name: 'Prestige Lavender Fields',
+            stage: 'Under Construction',
+            place: 'Varthur, East Bengaluru',
+            coords: '12.9482° N, 77.7360° E',
+            units: '1,473 Units • Tower Work',
+            pinX: 215,
+            pinY: 102
+          },
+          {
+            name: 'Prestige Raintree II',
+            stage: 'About to Start',
+            place: 'Varthur Main Rd, Bengaluru',
+            coords: '12.9560° N, 77.7410° E',
+            units: '1,368 Units • Groundbreaking',
+            pinX: 205,
+            pinY: 60
+          }
+        ]
+      },
+      'Brigade Enterprises Limited': {
+        hq: 'Headquarters: Bengaluru',
+        buildings: [
+          {
+            name: 'Brigade Utopia',
+            stage: 'Already Present',
+            place: 'Varthur Main Rd, East Bengaluru',
+            coords: '12.9465° N, 77.7418° E',
+            units: '4,000 Units • Occupied',
+            pinX: 210,
+            pinY: 95
+          },
+          {
+            name: 'Brigade Cornerstone',
+            stage: 'Already Present',
+            place: 'Whitefield, East Bengaluru',
+            coords: '12.9760° N, 77.7280° E',
+            units: '1,120 Units • Ready to Move',
+            pinX: 235,
+            pinY: 75
+          },
+          {
+            name: 'Brigade Sanctuary',
+            stage: 'Under Construction',
+            place: 'Sarjapur Road, Bengaluru',
+            coords: '12.8891° N, 77.7525° E',
+            units: '1,275 Units • Structure Stage',
+            pinX: 185,
+            pinY: 120
+          },
+          {
+            name: 'Brigade Insignia',
+            stage: 'Under Construction',
+            place: 'Yelahanka, North Bengaluru',
+            coords: '13.1005° N, 77.5963° E',
+            units: '379 Units • Foundation',
+            pinX: 140,
+            pinY: 45
+          },
+          {
+            name: 'Brigade Citrine',
+            stage: 'About to Start',
+            place: 'Budigere Cross, Bengaluru',
+            coords: '13.0612° N, 77.7480° E',
+            units: '420 Units • RERA Filing',
+            pinX: 225,
+            pinY: 55
+          }
+        ]
+      },
+      'Godrej Properties Limited': {
+        hq: 'Headquarters: Mumbai',
+        buildings: [
+          {
+            name: 'Godrej South Estate',
+            stage: 'Already Present',
+            place: 'Okhla Phase III, South Delhi',
+            coords: '28.5450° N, 77.2732° E',
+            units: '372 Units • Ready to Move',
+            pinX: 165,
+            pinY: 100
+          },
+          {
+            name: 'Godrej Aqua',
+            stage: 'Already Present',
+            place: 'Hosahalli, North Bengaluru',
+            coords: '13.1450° N, 77.6120° E',
+            units: '540 Units • Occupied',
+            pinX: 145,
+            pinY: 48
+          },
+          {
+            name: 'Godrej Splendour',
+            stage: 'Under Construction',
+            place: 'Belathur, East Bengaluru',
+            coords: '13.0078° N, 77.7564° E',
+            units: '1,161 Units • Finishing Stage',
+            pinX: 220,
+            pinY: 75
+          },
+          {
+            name: 'Godrej Tropical Isle',
+            stage: 'Under Construction',
+            place: 'Sector 146, Noida NCR',
+            coords: '28.4580° N, 77.4520° E',
+            units: '700 Units • Tower Rising',
+            pinX: 245,
+            pinY: 110
+          },
+          {
+            name: 'Godrej Woodscapes',
+            stage: 'About to Start',
+            place: 'Budigere Cross, Bengaluru',
+            coords: '13.0580° N, 77.7460° E',
+            units: '2,400 Units • Launching Soon',
+            pinX: 195,
+            pinY: 60
+          }
+        ]
+      },
+      'DLF Limited': {
+        hq: 'Headquarters: Gurugram',
+        buildings: [
+          {
+            name: 'DLF Capital Greens',
+            stage: 'Already Present',
+            place: 'Moti Nagar, West Delhi',
+            coords: '28.6592° N, 77.1478° E',
+            units: '2,800 Units • Occupied',
+            pinX: 115,
+            pinY: 85
+          },
+          {
+            name: 'DLF The Camellias',
+            stage: 'Already Present',
+            place: 'DLF Phase 5, Gurugram',
+            coords: '28.4368° N, 77.0982° E',
+            units: '429 Units • Occupied',
+            pinX: 165,
+            pinY: 115
+          },
+          {
+            name: 'DLF Privana South',
+            stage: 'Under Construction',
+            place: 'Sector 77, Gurugram NCR',
+            coords: '28.3745° N, 76.9890° E',
+            units: '1,113 Units • Excavation',
+            pinX: 95,
+            pinY: 120
+          },
+          {
+            name: 'DLF One Midtown',
+            stage: 'Under Construction',
+            place: 'Shivaji Marg, West Delhi',
+            coords: '28.6615° N, 77.1510° E',
+            units: '913 Units • Superstructure',
+            pinX: 130,
+            pinY: 65
+          },
+          {
+            name: 'DLF Arbour Phase II',
+            stage: 'About to Start',
+            place: 'Sector 63, Gurugram',
+            coords: '28.4042° N, 77.0815° E',
+            units: '1,137 Units • Pre-Launch',
+            pinX: 185,
+            pinY: 105
+          }
+        ]
+      }
+    };
+
+    var activeCompanyName = 'Sobha Limited';
+    var activeStage = 'All';
+
+    function initCompanyPage() {
+      var params = new URLSearchParams(window.location.search);
+      var comp = params.get('company');
+      if (comp && COMPANY_PORTFOLIOS[comp]) {
+        activeCompanyName = comp;
+      }
+      var data = COMPANY_PORTFOLIOS[activeCompanyName];
+      document.getElementById('company-name').textContent = activeCompanyName;
+      document.getElementById('company-hq').textContent = data.hq;
+      renderStageButtons();
+      renderBuildings();
+    }
+
+    function setStage(stage) {
+      activeStage = stage;
+      renderStageButtons();
+      renderBuildings();
+    }
+
+    function renderStageButtons() {
+      document.querySelectorAll('.stage-btn').forEach(function (btn) {
+        var label = btn.textContent.trim();
+        if (label === activeStage) {
+          btn.className = 'stage-btn px-gutter-md py-gutter-sm min-h-[40px] rounded-md bg-secondary text-on-secondary font-label text-label-md transition-colors duration-state-change cursor-pointer';
+        } else {
+          btn.className = 'stage-btn px-gutter-md py-gutter-sm min-h-[40px] rounded-md bg-surface border border-outline-variant text-on-surface-variant hover:border-secondary hover:text-secondary font-label text-label-md transition-colors duration-state-change cursor-pointer';
+        }
+      });
+    }
+
+    function getStageBadgeClass(stage) {
+      if (stage === 'Already Present') {
+        return 'px-gutter-sm py-gutter-xs rounded-DEFAULT bg-success-container text-on-success-container font-mono text-mono-sm';
+      }
+      if (stage === 'Under Construction') {
+        return 'px-gutter-sm py-gutter-xs rounded-DEFAULT bg-primary-container text-on-primary-container font-mono text-mono-sm';
+      }
+      return 'px-gutter-sm py-gutter-xs rounded-DEFAULT bg-secondary-container text-on-secondary-container font-mono text-mono-sm';
+    }
+
+    function renderBuildings() {
+      var list = COMPANY_PORTFOLIOS[activeCompanyName].buildings.filter(function (b) {
+        return activeStage === 'All' || b.stage === activeStage;
+      });
+      document.getElementById('projects-count').textContent = list.length + ' sites';
+
+      var grid = document.getElementById('projects-grid');
+      grid.innerHTML = list.map(function (b) {
+        return (
+          '<article class="h-full rounded-xl bg-surface-container border border-outline-variant p-gutter-lg shadow-sm flex flex-col justify-between gap-gutter-md">' +
+            '<div class="flex flex-col gap-gutter-md">' +
+              '<div class="flex flex-col items-start gap-gutter-xs">' +
+                '<span class="' + getStageBadgeClass(b.stage) + '" data-design-text-token="mono-sm">' + b.stage + '</span>' +
+                '<h3 class="font-title text-title-lg text-on-surface" data-design-text-token="title-lg">' + b.name + '</h3>' +
+              '</div>' +
+
+              '<!-- Embedded Location Map Widget (Clickable to View User Leads) -->' +
+              '<a href="../agent-portal/LocationLeads.html?company=' + encodeURIComponent(activeCompanyName) + '&project=' + encodeURIComponent(b.name) + '&place=' + encodeURIComponent(b.place) + '" class="block rounded-lg bg-surface-container-low border border-outline-variant overflow-hidden hover:border-secondary transition-colors duration-state-change">' +
+                '<svg viewBox="0 0 320 150" class="w-full h-36 block" role="img" aria-label="Embedded location map for ' + b.name + '">' +
+                  '<rect width="320" height="150" fill="#E9EFEA" />' +
+                  '<path d="M0 45 L320 45 M0 105 L320 105 M90 0 L90 150 M210 0 L210 150" stroke="#D0DDD7" stroke-width="2" />' +
+                  '<path d="M20 130 Q 150 90 300 30" fill="none" stroke="#8FA3A8" stroke-width="2.5" stroke-dasharray="5 4" />' +
+                  '<circle cx="' + b.pinX + '" cy="' + b.pinY + '" r="18" fill="#0F4C5C" fill-opacity="0.16" />' +
+                  '<circle cx="' + b.pinX + '" cy="' + b.pinY + '" r="7" fill="#B44D27" stroke="#FFFFFF" stroke-width="2" />' +
+                '</svg>' +
+                '<div class="p-gutter-sm bg-surface-container border-t border-outline-variant flex items-center justify-between gap-gutter-sm">' +
+                  '<div class="flex items-center gap-gutter-xs">' +
+                    '<span class="material-symbols-outlined text-title-md text-secondary" aria-hidden="true">location_on</span>' +
+                    '<span class="font-body text-body-sm text-on-surface" data-design-text-token="body-sm">' + b.place + '</span>' +
+                  '</div>' +
+                  '<span class="material-symbols-outlined text-title-md text-secondary shrink-0" aria-hidden="true">arrow_forward</span>' +
+                '</div>' +
+              '</a>' +
+
+              '<div class="flex flex-col gap-gutter-xs">' +
+                '<span class="font-mono text-mono-sm text-on-surface-variant tabular-nums" data-design-text-token="mono-sm">' + b.coords + '</span>' +
+                '<span class="font-body text-body-sm text-on-surface-variant" data-design-text-token="body-sm">' + b.units + '</span>' +
+              '</div>' +
+            '</div>' +
+          '</article>'
+        );
+      }).join('');
+    }
+
+    initCompanyPage();
+  </script>
+
+
+</body></html>
