@@ -74,11 +74,17 @@ export default function App() {
     return () => window.removeEventListener('gmp-quota-exceeded', onQuota);
   }, []);
 
-  const mapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
+  const mapsApiKey = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '').trim();
+
+  const appTree = (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
+  );
 
   return (
     <ErrorBoundary>
-      {quotaExceeded && (
+      {quotaExceeded && mapsApiKey && (
         <div
           role="alert"
           className="sticky top-0 z-[100] bg-amber-100 border-b border-amber-400 text-amber-950 px-4 py-2.5 text-xs sm:text-sm font-medium flex flex-wrap items-center justify-between gap-3 shadow-sm"
@@ -103,18 +109,20 @@ export default function App() {
           </button>
         </div>
       )}
-      <APIProvider
-        apiKey={mapsApiKey}
-        language="en"
-        region="IN"
-        onError={() => {
-          window.dispatchEvent(new CustomEvent('gmp-quota-exceeded'));
-        }}
-      >
-        <AppProvider>
-          <AppContent />
-        </AppProvider>
-      </APIProvider>
+      {mapsApiKey ? (
+        <APIProvider
+          apiKey={mapsApiKey}
+          language="en"
+          region="IN"
+          onError={() => {
+            window.dispatchEvent(new CustomEvent('gmp-quota-exceeded'));
+          }}
+        >
+          {appTree}
+        </APIProvider>
+      ) : (
+        appTree
+      )}
     </ErrorBoundary>
   );
 }
