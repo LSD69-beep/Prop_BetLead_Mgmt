@@ -106,7 +106,7 @@ export const PortalChooser: React.FC = () => {
             </div>
 
             <div className="pt-4 border-t border-[#D0DDD7] flex items-center justify-between text-[#0F4C5C] font-semibold text-sm group-hover:text-[#09323D]">
-              <span>Continue as Customer</span>
+              <span>Customer Sign In</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
             </div>
           </div>
@@ -151,7 +151,7 @@ export const PortalChooser: React.FC = () => {
             </div>
 
             <div className="pt-4 border-t border-[#D0DDD7] flex items-center justify-between text-[#B44D27] font-semibold text-sm group-hover:text-[#5C220D]">
-              <span>Continue as Agent</span>
+              <span>Agent Sign In</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
             </div>
           </div>

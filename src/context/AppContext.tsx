@@ -426,21 +426,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   );
 
   // Navigation & Role
-  const [role, setRoleState] = useState<UserRole>(() => {
-    try {
-      return (localStorage.getItem('gw_role') as UserRole) || null;
-    } catch {
-      return null;
-    }
-  });
-
-  const [currentView, setCurrentViewState] = useState<AppView>(() => {
-    try {
-      return (localStorage.getItem('gw_view') as AppView) || 'portal-chooser';
-    } catch {
-      return 'portal-chooser';
-    }
-  });
+  const [role, setRoleState] = useState<UserRole>(null);
+  const [currentView, setCurrentViewState] = useState<AppView>('portal-chooser');
 
   const [navigationHistory, setNavigationHistory] = useState<AppView[]>(['portal-chooser']);
   const [activeHub, setActiveHub] = useState<TenantHub>(TENANT_HUBS[0]);

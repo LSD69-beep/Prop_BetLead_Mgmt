@@ -35,6 +35,7 @@ export const Header: React.FC = () => {
   } = useApp();
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const isLoginView = currentView === 'customer-login' || currentView === 'agent-login';
 
   // Global Cmd+K / Ctrl+K listener
   useEffect(() => {
@@ -50,11 +51,7 @@ export const Header: React.FC = () => {
 
   const handlePortalSwitch = (newRole: 'customer' | 'agent') => {
     setRole(newRole);
-    if (newRole === 'customer') {
-      navigate('customer-city-select');
-    } else {
-      navigate('agent-flats');
-    }
+    navigate(newRole === 'customer' ? 'customer-login' : 'agent-login');
   };
 
   const handleSignOut = () => {
@@ -104,7 +101,7 @@ export const Header: React.FC = () => {
         </div>
 
         {/* Zone 2: Navigation Links (single line, clean typography) */}
-        {role && (
+        {role && !isLoginView && (
           <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#4B5E63]">
             {role === 'customer' ? (
               <>
@@ -248,7 +245,7 @@ export const Header: React.FC = () => {
           </div>
 
           {/* Quick Portal Switcher (Customer <-> Agent) */}
-          {role ? (
+          {isLoginView ? null : role ? (
             <div className="flex items-center gap-2">
               <button
                 onClick={() => handlePortalSwitch(role === 'customer' ? 'agent' : 'customer')}

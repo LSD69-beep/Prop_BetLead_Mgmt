@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
           <button
             onClick={() => {
               setRole('customer');
-              navigate('customer-city-select');
+              navigate('customer-login');
             }}
             className="hover:text-[#0F4C5C] transition-colors cursor-pointer flex items-center gap-1"
           >
@@ -33,7 +33,7 @@ export const Footer: React.FC = () => {
           <button
             onClick={() => {
               setRole('customer');
-              navigate('customer-developer-stocks');
+              navigate('customer-login');
             }}
             className="hover:text-[#0F4C5C] transition-colors cursor-pointer flex items-center gap-1"
           >
@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
           <button
             onClick={() => {
               setRole('agent');
-              navigate('agent-flats');
+              navigate('agent-login');
             }}
             className="hover:text-[#B44D27] transition-colors cursor-pointer flex items-center gap-1"
           >
@@ -55,7 +55,7 @@ export const Footer: React.FC = () => {
           <button
             onClick={() => {
               setRole('agent');
-              navigate('agent-lead-dashboard');
+              navigate('agent-login');
             }}
             className="hover:text-[#B44D27] transition-colors cursor-pointer font-semibold text-[#B44D27]"
           >
