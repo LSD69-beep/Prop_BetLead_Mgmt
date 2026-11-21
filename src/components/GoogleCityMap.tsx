@@ -114,10 +114,7 @@ const LiveGoogleCityMap: React.FC<{
   const apiStatus = useApiLoadingStatus();
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null);
 
-  if (
-    apiStatus === APILoadingStatus.FAILED ||
-    apiStatus === APILoadingStatus.AUTH_FAILURE
-  ) {
+  if (apiStatus !== APILoadingStatus.LOADED) {
     return <InteractiveTileMap {...props} />;
   }
 
